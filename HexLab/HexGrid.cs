@@ -20,25 +20,24 @@ public partial class HexGrid : Node3D
 	[Export] private Vector2 tile_size = new Vector2(1, 1);
 
 	[ExportGroup("Testing")]
-	[Export] private PackedScene test_tile;
 	[Export] private Label coordinate_display;
 
 
 
 
-    public override void _EnterTree()
-    {
-        base._EnterTree();
+	public override void _EnterTree()
+	{
+		base._EnterTree();
 		HexUtilities.Orientation _o = orientation == _orient.Flat ? Layout.flat : Layout.pointy;
 		layout = new Layout(_o, tile_size, Position);
 
-    } 
+	} 
 
 	
 
 	public override void _Ready()
 	{
-		Init_Test();
+
 	}
 
 	public override void _Process(double delta)
@@ -46,23 +45,6 @@ public partial class HexGrid : Node3D
 		GetMousePosition();
 	}
 
-
-	private void Init_Test()
-	{
-		if (test_tile != null)
-		{
-			List<Hex> hexes = new List<Hex> {new Hex(layout.worldspace_origin)};
-			hexes.AddRange(hexes[0].Adjacents());
-			foreach (Hex h in hexes)
-			{
-				Debug.WriteLine(h.q + " " + h.r + " " + h.s);
-				Node3D _tile = (Node3D)test_tile.Instantiate();
-				AddChild(_tile);
-				_tile.Position = layout.GridToWorldspace(h);
-			}
-		}
-
-	}
 
 	private void GetMousePosition()
 	{
@@ -76,4 +58,3 @@ public partial class HexGrid : Node3D
 
 
 }
-

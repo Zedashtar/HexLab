@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://4uj4scdpxnwm"]
+[gd_scene load_steps=6 format=3 uid="uid://4uj4scdpxnwm"]
 
 [ext_resource type="Script" path="res://HexGrid.cs" id="1_kr5dw"]
 [ext_resource type="PackedScene" uid="uid://cimvj45bkn3r1" path="res://HexTemplate.blend" id="2_w6qe6"]
+[ext_resource type="Script" path="res://world_manager.cs" id="3_7dmv2"]
+[ext_resource type="PackedScene" uid="uid://diyxsy4khqxlm" path="res://Tiles/Prefabs/tile_placeholder.tscn" id="4_iiq8f"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k3jcv"]
 bg_color = Color(0.151276, 0.151276, 0.151276, 1)
@@ -13,10 +15,17 @@ corner_radius_bottom_left = 5
 [node name="Main" type="Node3D"]
 
 [node name="HexGrid" type="Node3D" parent="." node_paths=PackedStringArray("coordinate_display")]
+unique_name_in_owner = true
 script = ExtResource("1_kr5dw")
 tile_size = Vector2(0.5, 0.5)
 test_tile = ExtResource("2_w6qe6")
 coordinate_display = NodePath("../Testing Feedback/TileCoordinates")
+
+[node name="WorldManager" type="Node3D" parent="."]
+script = ExtResource("3_7dmv2")
+test_tile = ExtResource("4_iiq8f")
+
+[node name="TileContainer" type="Node3D" parent="WorldManager"]
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.62932, 0.777146, 0, -0.777146, 0.62932, 0, 5, 4)
