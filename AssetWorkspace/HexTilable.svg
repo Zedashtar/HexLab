@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="1024"
+   height="1024"
+   viewBox="0 0 270.93333 270.93333"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   sodipodi:docname="HexTilable.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="px"
+     inkscape:zoom="0.52850974"
+     inkscape:cx="264.89578"
+     inkscape:cy="420.99508"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1">
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath8">
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.651215;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-dashoffset:4.0005;stroke-opacity:1"
+         id="rect8"
+         height="134.11798"
+         x="42.459179"
+         y="71.551849"
+         ry="0"
+         width="116.14957" />
+    </clipPath>
+  </defs>
+  <g
+     inkscape:label="Calque 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <g
+       id="g7"
+       transform="matrix(2.0201113,0,0,2.0201113,-67.623131,-144.54267)"
+       clip-path="url(#clipPath8)"
+       inkscape:export-filename="HexTileable.png"
+       inkscape:export-xdpi="96"
+       inkscape:export-ydpi="96"
+       style="stroke-width:0.9999913;stroke-dasharray:none">
+      <path
+         id="path7"
+         style="fill:none;stroke:#000000;stroke-width:0.9999913;stroke-linecap:round;stroke-linejoin:round;stroke-dashoffset:4.0005;stroke-dasharray:none"
+         inkscape:transform-center-x="1.2665697e-06"
+         inkscape:transform-center-y="-1.7482229e-06"
+         transform="translate(-58.074795,-33.683849)"
+         d="m 139.2505,138.7652 -19.35826,33.5295 H 81.175709 L 61.817444,138.7652 81.175709,105.2357 h 38.716531 z m 0,67.059 -19.35826,33.5295 H 81.175709 L 61.817444,205.8242 81.175709,172.2947 h 38.716531 z m 58.0748,33.52949 -19.35826,33.5295 H 139.2505 l -19.35826,-33.5295 19.35826,-33.5295 h 38.71654 z m 58.07479,-33.52949 -19.35826,33.5295 H 197.3253 l -19.35827,-33.5295 19.35827,-33.5295 h 38.71653 z m 0,-66.90465 -19.35826,33.5295 H 197.3253 l -19.35827,-33.5295 19.35827,-33.5295 h 38.71653 z m -58.0748,-33.5295 -19.35826,33.5295 H 139.2505 l -19.35826,-33.5295 19.35826,-33.529498 h 38.71653 z m 0,67.059 -19.35826,33.5295 H 139.2505 l -19.35826,-33.5295 19.35826,-33.5295 h 38.71653 z"
+         inkscape:export-filename="HexTileable.png"
+         inkscape:export-xdpi="96"
+         inkscape:export-ydpi="96" />
+    </g>
+  </g>
+</svg>
