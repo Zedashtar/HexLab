@@ -1,0 +1,17 @@
+# Godot 4+ specific ignores
+HexLab/.godot/
+/android/
+
+
+# Godot-specific ignores
+HexLab/export.cfg
+HexLab/export_presets.cfg
+
+# Imported translations (automatically generated from CSV files)
+HexLab/*.translation
+
+# Mono-specific ignores
+HexLab/.mono/
+HexLab/data_*/
+HexLab/mono_crash.*.json
+HexLab/*.tmp

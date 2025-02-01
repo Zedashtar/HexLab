@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=3 uid="uid://4uj4scdpxnwm"]
+
+[ext_resource type="Script" path="res://HexGrid.cs" id="1_kr5dw"]
+[ext_resource type="PackedScene" uid="uid://cimvj45bkn3r1" path="res://HexTemplate.blend" id="2_w6qe6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k3jcv"]
+bg_color = Color(0.151276, 0.151276, 0.151276, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="Main" type="Node3D"]
+
+[node name="HexGrid" type="Node3D" parent="." node_paths=PackedStringArray("coordinate_display")]
+script = ExtResource("1_kr5dw")
+tile_size = Vector2(0.5, 0.5)
+test_tile = ExtResource("2_w6qe6")
+coordinate_display = NodePath("../Testing Feedback/TileCoordinates")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.62932, 0.777146, 0, -0.777146, 0.62932, 0, 5, 4)
+keep_aspect = 0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.977966, -0.206163, 0.0328596, 0, 0.1574, 0.987535, -0.208765, -0.965775, 0.153932, 0, 6, 0)
+
+[node name="Testing Feedback" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TileCoordinates" type="Label" parent="Testing Feedback"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_right = 40.0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.907942, 0.907942, 0.907942, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_k3jcv")
