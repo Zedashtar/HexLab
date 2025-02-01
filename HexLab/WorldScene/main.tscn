@@ -1,9 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://4uj4scdpxnwm"]
+[gd_scene load_steps=8 format=3 uid="uid://4uj4scdpxnwm"]
 
-[ext_resource type="Script" path="res://HexGrid.cs" id="1_kr5dw"]
-[ext_resource type="PackedScene" uid="uid://cimvj45bkn3r1" path="res://HexTemplate.blend" id="2_w6qe6"]
-[ext_resource type="Script" path="res://world_manager.cs" id="3_7dmv2"]
-[ext_resource type="PackedScene" uid="uid://diyxsy4khqxlm" path="res://Tiles/Prefabs/tile_placeholder.tscn" id="4_iiq8f"]
+[ext_resource type="Script" path="res://WorldScene/HexGrid.cs" id="1_5y12e"]
+[ext_resource type="Script" path="res://WorldScene/world_manager.cs" id="2_gwq4f"]
+[ext_resource type="PackedScene" uid="uid://diyxsy4khqxlm" path="res://Tiles/Prefabs/tile_placeholder.tscn" id="3_v3srf"]
+[ext_resource type="Shader" uid="uid://c4lpxg3vm7jrg" path="res://WorldScene/grid_shader.tres" id="4_jheyi"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k3jcv"]
 bg_color = Color(0.151276, 0.151276, 0.151276, 1)
@@ -12,18 +12,27 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jyc4g"]
+render_priority = 0
+shader = ExtResource("4_jheyi")
+shader_parameter/Scaling = 13.45
+shader_parameter/Offset = Vector2(0.775, 0.177)
+shader_parameter/Metallic = 1.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1lxk4"]
+size = Vector2(20, 20)
+
 [node name="Main" type="Node3D"]
 
 [node name="HexGrid" type="Node3D" parent="." node_paths=PackedStringArray("coordinate_display")]
 unique_name_in_owner = true
-script = ExtResource("1_kr5dw")
+script = ExtResource("1_5y12e")
 tile_size = Vector2(0.5, 0.5)
-test_tile = ExtResource("2_w6qe6")
 coordinate_display = NodePath("../Testing Feedback/TileCoordinates")
 
 [node name="WorldManager" type="Node3D" parent="."]
-script = ExtResource("3_7dmv2")
-test_tile = ExtResource("4_iiq8f")
+script = ExtResource("2_gwq4f")
+test_tile = ExtResource("3_v3srf")
 
 [node name="TileContainer" type="Node3D" parent="WorldManager"]
 
@@ -52,3 +61,9 @@ offset_right = 40.0
 grow_vertical = 0
 theme_override_colors/font_color = Color(0.907942, 0.907942, 0.907942, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_k3jcv")
+
+[node name="GridMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.095, 0)
+material_override = SubResource("ShaderMaterial_jyc4g")
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_1lxk4")

@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="HexLab"
-run/main_scene="res://main.tscn"
+run/main_scene="res://WorldScene/main.tscn"
 config/features=PackedStringArray("4.3", "C#", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/always_on_top=true
 
 [dotnet]
 

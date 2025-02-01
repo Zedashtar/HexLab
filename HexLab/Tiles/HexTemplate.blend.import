@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://cimvj45bkn3r1"
-path="res://.godot/imported/HexTemplate.blend-54a4035373f2fd8e4161d89eb742f7b1.scn"
+path="res://.godot/imported/HexTemplate.blend-f66a8effb1ef889ea1a7ae2dc12e9998.scn"
 
 [deps]
 
-source_file="res://HexTemplate.blend"
-dest_files=["res://.godot/imported/HexTemplate.blend-54a4035373f2fd8e4161d89eb742f7b1.scn"]
+source_file="res://Tiles/HexTemplate.blend"
+dest_files=["res://.godot/imported/HexTemplate.blend-f66a8effb1ef889ea1a7ae2dc12e9998.scn"]
 
 [params]
 
