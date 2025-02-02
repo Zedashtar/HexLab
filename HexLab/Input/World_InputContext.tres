@@ -243,12 +243,6 @@ input_mappings = Array[ExtResource("3_hc8m5")]([SubResource("Resource_0hsxb")])
 script = ExtResource("11_7jxj7")
 button = 5
 
-[sub_resource type="Resource" id="Resource_8p4rm"]
-script = ExtResource("6_qjwse")
-x = true
-y = true
-z = true
-
 [sub_resource type="Resource" id="Resource_egocd"]
 script = ExtResource("3_hc8m5")
 override_action_settings = false
@@ -256,12 +250,18 @@ is_remappable = false
 display_name = ""
 display_category = ""
 input = SubResource("Resource_jjgrr")
-modifiers = Array[ExtResource("5_gpwmd")]([SubResource("Resource_8p4rm")])
+modifiers = Array[ExtResource("5_gpwmd")]([])
 triggers = Array[ExtResource("8_urobd")]([])
 
 [sub_resource type="Resource" id="Resource_2p24w"]
 script = ExtResource("11_7jxj7")
 button = 4
+
+[sub_resource type="Resource" id="Resource_3wonj"]
+script = ExtResource("6_qjwse")
+x = true
+y = true
+z = true
 
 [sub_resource type="Resource" id="Resource_gilgs"]
 script = ExtResource("3_hc8m5")
@@ -270,14 +270,14 @@ is_remappable = false
 display_name = ""
 display_category = ""
 input = SubResource("Resource_2p24w")
-modifiers = Array[ExtResource("5_gpwmd")]([])
+modifiers = Array[ExtResource("5_gpwmd")]([SubResource("Resource_3wonj")])
 triggers = Array[ExtResource("8_urobd")]([])
 
 [sub_resource type="Resource" id="Resource_k632s"]
 script = ExtResource("1_iiale")
 action = ExtResource("10_6i8yi")
 input_mappings = Array[ExtResource("3_hc8m5")]([SubResource("Resource_egocd"), SubResource("Resource_gilgs")])
-metadata/_guide_input_mappings_collapsed = true
+metadata/_guide_input_mappings_collapsed = false
 
 [sub_resource type="Resource" id="Resource_flxnx"]
 script = ExtResource("11_7jxj7")

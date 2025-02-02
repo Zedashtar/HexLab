@@ -23,6 +23,10 @@ render_priority = 0
 shader = ExtResource("7_udo8t")
 shader_parameter/Scaling = 13.45
 shader_parameter/Offset = Vector2(0.775, 0.177)
+shader_parameter/Center = Vector2(0.5, 0.5)
+shader_parameter/Strength = 5.871
+shader_parameter/Size = 3.919
+shader_parameter/Inner_Cutoff = 0.0
 shader_parameter/Metallic = 1.0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_1lxk4"]
