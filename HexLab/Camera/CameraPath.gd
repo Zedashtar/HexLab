@@ -32,7 +32,7 @@ func GeneratePath() -> Curve3D :
 
 func UpdatePath(_curve : Curve3D) :
 	curve = _curve
-	curve_changed
+
 
 
 
