@@ -3,9 +3,13 @@ extends Node3D
 @export_group("Camera")
 @export_subgroup("Move")
 @export var move_action : GUIDEAction
+@export var mouse_move_action : GUIDEAction
+@export var mouse_move_toggle : GUIDEAction
 @export var move_speed : float = 1.0
 @export_subgroup("Rotate")
 @export var rotate_action : GUIDEAction
+@export var mouse_rotate_action : GUIDEAction
+@export var mouse_rotate_toggle : GUIDEAction
 @export var rotate_speed : float = 1.0
 @export_subgroup("Zoom")
 @export var zoom_action : GUIDEAction
@@ -17,15 +21,16 @@ var zoom_tween : Tween = null
 @onready var camera_anchor: PathFollow3D = $CameraPath/CameraAnchor
 @onready var main_camera: Camera3D = $CameraPath/CameraAnchor/MainCamera
 
-
+var _delta : float
 
 
 
 func _ready() -> void:
-	pass 
+	pass
 
 
 func _physics_process(delta: float) -> void:
+	_delta = delta
 	_handle_move(delta)
 	_handle_rotation(delta)
 	_handle_zoom(delta)
@@ -37,17 +42,24 @@ func _physics_process(delta: float) -> void:
 
 
 func _handle_move(delta : float):
-	var move_direction = move_action.value_axis_3d
-	if move_direction != Vector3.ZERO : print(move_action.value_axis_3d)
-	var global_direction = move_direction.rotated(Vector3.UP, main_camera.rotation.y)
+	var v : Vector3 = Vector3.ZERO
+	if mouse_move_toggle.is_triggered() : v = Vector3(mouse_move_action.value_axis_2d.x, 0.0, mouse_move_action.value_axis_2d.y)
+	else :v = move_action.value_axis_3d
+	
+	var global_direction = v.rotated(Vector3.UP, main_camera.rotation.y)
 	translate(global_direction * move_speed * delta)
 	
 	#Need CameraBoundaries Setup
 	#Need GridMesh Snapping
+
+	
 	
 func _handle_rotation(delta : float) :
-	camera_anchor.progress_ratio = wrapf(camera_anchor.progress_ratio + rotate_action.value_axis_1d * rotate_speed * delta,0.0,1.0)
-	
+	var v : float = 0.0
+	if mouse_rotate_toggle.is_triggered(): v = mouse_rotate_action.value_axis_1d
+	else : v = rotate_action.value_axis_1d
+	camera_anchor.progress_ratio = wrapf(camera_anchor.progress_ratio + v * rotate_speed * delta, 0.0, 1.0)
+
 	
 func _handle_zoom(delta : float):
 	var target_zoom = clampf(main_camera.fov + zoom_action.value_axis_1d * zoom_speed * delta, zoom_clamp.x, zoom_clamp.y)
