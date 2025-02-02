@@ -5,7 +5,8 @@ extends Node3D
 @export var move_action : GUIDEAction
 @export var mouse_move_action : GUIDEAction
 @export var mouse_move_toggle : GUIDEAction
-@export var move_speed : float = 1.0
+@export var move_speed : Vector2
+var scaled_move_speed : float = 0.0
 @export_subgroup("Rotate")
 @export var rotate_action : GUIDEAction
 @export var mouse_rotate_action : GUIDEAction
@@ -31,6 +32,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	_delta = delta
+	scaled_move_speed = lerpf(move_speed.x, move_speed.y, main_camera.fov / zoom_clamp.y)
 	_handle_move(delta)
 	_handle_rotation(delta)
 	_handle_zoom(delta)
@@ -47,7 +49,7 @@ func _handle_move(delta : float):
 	else :v = move_action.value_axis_3d
 	
 	var global_direction = v.rotated(Vector3.UP, main_camera.rotation.y)
-	translate(global_direction * move_speed * delta)
+	translate(global_direction * scaled_move_speed * delta)
 	
 	#Need CameraBoundaries Setup
 	#Need GridMesh Snapping
