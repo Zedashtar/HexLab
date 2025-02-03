@@ -132,9 +132,9 @@ namespace HexUtilities
             return "(" + q + ", " + r + ", " + s + ")";
         }
 
-        public Vector3 ToVector3()
+        public Vector3I ToVector3()
         {
-            return new Vector3(q, r, s);
+            return new Vector3I(q, r, s);
         }
 
 
