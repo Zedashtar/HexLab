@@ -35,7 +35,6 @@ public partial class PrimedOverlay : MultiMeshInstance3D
 			t.Origin = grid.layout.GridToWorldspace(_sites[i]) + Vector3.Up * mesh_height;
 			Multimesh.SetInstanceTransform(i, t.ScaledLocal(Vector3.One * mesh_scale));
 
-			GD.Print(i.ToString() + " : " + Multimesh.GetInstanceTransform(i).Origin.ToString() + " : " + Multimesh.GetInstanceTransform(i).Basis.Scale.ToString());
 		}
 
 

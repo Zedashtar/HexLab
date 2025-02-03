@@ -29,4 +29,4 @@ project/assembly_name="HexLab"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/guide/plugin.cfg")
+enabled=PackedStringArray("res://addons/guide/plugin.cfg", "res://addons/statemachine/plugin.cfg")

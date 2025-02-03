@@ -14,7 +14,7 @@ public partial class WorldManager : Node3D
 	private HexGrid grid;
 
 	public List<Hex> primed_sites = new List<Hex>();
-	private PrimedOverlay primed_overlay;
+	[Export] private PrimedOverlay primed_overlay;
 	private Node3D tile_container;
 
 
@@ -28,7 +28,6 @@ public partial class WorldManager : Node3D
 	{
 		grid = (HexGrid)GetNode("%HexGrid");
 		tile_container = (Node3D)GetNode("TileContainer");
-		primed_overlay = (PrimedOverlay)GetNode("PrimedOverlay");
 		//if World Loader passes a World, Load World Here
 		//Else
 		world = new WorldResource();
