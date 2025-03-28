@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 GUIDE="*res://addons/guide/guide.gd"
+GameData="*res://Autoload/GameData/game_data.tscn"
 
 [display]
 
