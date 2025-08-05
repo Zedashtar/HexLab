@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bxhire17xflrt"]
 
 [ext_resource type="Script" uid="uid://b4x3tr5jcymve" path="res://Autoload/GameData/game_data.gd" id="1_23v27"]
-[ext_resource type="Script" uid="uid://df6x6fv50cbdm" path="res://Autoload/GameData/PatternData.cs" id="2_a7052"]
+[ext_resource type="Script" uid="uid://df6x6fv50cbdm" path="res://Autoload/GameData/pattern_data.cs" id="2_a7052"]
 
 [node name="GameData" type="Node" node_paths=PackedStringArray("patterns")]
 script = ExtResource("1_23v27")

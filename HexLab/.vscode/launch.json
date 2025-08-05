@@ -11,7 +11,7 @@
 
             "preLaunchTask": "build",
 
-            "program": "C:/Program Files (x86)/Godot/Godot_v4.3-stable_mono_win64/Godot_v4.3-stable_mono_win64.exe",
+            "program": "C:/Program Files (x86)/Godot/Godot_v4.4.1-stable_mono_win64/Godot_v4.4.1-stable_mono_win64.exe",
             "cwd": "${workspaceFolder}",
             "console": "internalConsole",
             

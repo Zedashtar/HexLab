@@ -1,4 +1,3 @@
 extends Node
 
-
-@export var patterns : PaternData
+@export var patterns : Node

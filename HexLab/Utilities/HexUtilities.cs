@@ -9,9 +9,9 @@ namespace HexUtilities
 	public struct Hex
 	{
 
-		public readonly int q;
-		public readonly int r;
-		public readonly int s;
+		public int q;
+		public int r;
+		public int s;
 
 		public Hex(int _q, int _r, int _s)
 		{
@@ -28,6 +28,8 @@ namespace HexUtilities
 			s = -_q - _r;
 		}
 
+		public Hex() { } //Parameterless constructor for deserialization
+
 		public Hex(Vector3 v)
 		{
 			q = (int)v.X;
@@ -36,15 +38,18 @@ namespace HexUtilities
 			if (q + r + s != 0) throw new ArgumentException("q + r + s must be 0");
 		}
 
-		public static Hex operator +(Hex a, Hex b) {
+		public static Hex operator +(Hex a, Hex b)
+		{
 			return new Hex(a.q + b.q, a.r + b.r, a.s + b.s);
 		}
 
-		public static Hex operator -(Hex a, Hex b) {
+		public static Hex operator -(Hex a, Hex b)
+		{
 			return new Hex(a.q - b.q, a.r - b.r, a.s - b.s);
 		}
 
-		public static Hex operator *(Hex a, int k) {
+		public static Hex operator *(Hex a, int k)
+		{
 			return new Hex(a.q * k, a.r * k, a.s * k);
 		}
 
@@ -61,7 +66,6 @@ namespace HexUtilities
 			return new Hex(q + b.q, r + b.r, s + b.s);
 		}
 
-
 		public Hex Subtract(Hex b)
 		{
 			return new Hex(q - b.q, r - b.r, s - b.s);
@@ -74,7 +78,7 @@ namespace HexUtilities
 		}
 
 
-		static public Hex[] hex_directions = new Hex[]{new Hex(1, 0, -1), new Hex(1, -1, 0), new Hex(0, -1, 1), new Hex(-1, 0, 1), new Hex(-1, 1, 0), new Hex(0, 1, -1)};
+		static public Hex[] hex_directions = new Hex[] { new Hex(1, 0, -1), new Hex(1, -1, 0), new Hex(0, -1, 1), new Hex(-1, 0, 1), new Hex(-1, 1, 0), new Hex(0, 1, -1) };
 
 		static public Hex Direction(int direction)
 		{
@@ -107,7 +111,7 @@ namespace HexUtilities
 			return Subtract(b).Length();
 		}
 
-		public enum RotateDirection {Clockwise, CounterClockwise}
+		public enum RotateDirection { Clockwise, CounterClockwise }
 
 		public Hex Rotate(RotateDirection direction) //Always rotate around the origin
 		{
@@ -167,15 +171,14 @@ namespace HexUtilities
 			{
 				qi = -ri - si;
 			}
+			else if (r_diff > s_diff)
+			{
+				ri = -qi - si;
+			}
 			else
-				if (r_diff > s_diff)
-				{
-					ri = -qi - si;
-				}
-				else    
-				{
-					si = -qi - ri;
-				}
+			{
+				si = -qi - ri;
+			}
 			return new Hex(qi, ri, si);
 		}
 
@@ -211,7 +214,7 @@ namespace HexUtilities
 	}
 	#endregion
 	#region Layout
-	public struct Layout 
+	public struct Layout
 	{
 		public Layout(Orientation orientation, Vector2 size, Vector3 origin)
 		{
@@ -219,7 +222,7 @@ namespace HexUtilities
 			this.tile_size = size;
 			this.worldspace_origin = origin;
 		}
-		
+
 		public readonly Orientation orientation;
 		public readonly Vector2 tile_size;
 		public readonly Vector3 worldspace_origin;
@@ -227,7 +230,7 @@ namespace HexUtilities
 		static public Orientation flat = new Orientation(3.0 / 2.0, 0.0, Math.Sqrt(3.0) / 2.0, Math.Sqrt(3.0), 2.0 / 3.0, 0.0, -1.0 / 3.0, Math.Sqrt(3.0) / 3.0, 0.0);
 
 
-		public Vector3 GridToWorldspace (Hex h)
+		public Vector3 GridToWorldspace(Hex h)
 		{
 			Orientation M = orientation;
 			double x = (M.f0 * h.q + M.f1 * h.r) * tile_size.X;
