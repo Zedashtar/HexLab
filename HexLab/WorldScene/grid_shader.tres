@@ -149,10 +149,10 @@ uniform float Scaling = 13.4499998092651;
 uniform vec2 Offset = vec2(0.775000, 0.177000);
 uniform sampler2D tex_frg_2;
 uniform vec2 Center = vec2(0.500000, 0.500000);
-uniform float Strength : hint_range(0, 8) = 4;
-uniform float Size : hint_range(0, 6) = 6;
-uniform float Inner_Cutoff : hint_range(0, 1) = 0;
-uniform float Metallic : hint_range(0, 1) = 1;
+uniform float Strength : hint_range(0.0, 8.0) = 4.0;
+uniform float Size : hint_range(0.0, 6.0) = 6.0;
+uniform float Inner_Cutoff : hint_range(0.0, 1.0) = 0.0;
+uniform float Metallic : hint_range(0.0, 1.0) = 1.0;
 
 
 

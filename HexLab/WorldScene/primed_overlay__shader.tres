@@ -51,7 +51,7 @@ code = "shader_type spatial;
 render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
 
 uniform vec2 ScaleMinMax = vec2(0.700000, 0.900000);
-uniform float BlinkSpeedMultiplier = 4;
+uniform float BlinkSpeedMultiplier = 4.0;
 uniform sampler2D tex_frg_2;
 
 
