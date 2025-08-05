@@ -53,13 +53,13 @@ namespace HexUtilities
 			return new Hex(a.q * k, a.r * k, a.s * k);
 		}
 
-		// public static bool operator ==(Hex a, Hex b) {
-		//     return a.q == b.q && a.r == b.r && a.s == b.s;
-		// }
+		public static bool operator ==(Hex a, Hex b) {
+			return a.q == b.q && a.r == b.r && a.s == b.s;
+		}
 
-		// public static bool operator !=(Hex a, Hex b) {
-		//     return !(a == b);
-		// }
+		public static bool operator !=(Hex a, Hex b) {
+			return !(a == b);
+		}
 
 		public Hex Add(Hex b)
 		{
@@ -75,6 +75,11 @@ namespace HexUtilities
 		public Hex Scale(int k)
 		{
 			return new Hex(q * k, r * k, s * k);
+		}
+
+		public Hex Negate()
+		{
+			return new Hex(-q, -r, -s);
 		}
 
 
@@ -130,6 +135,11 @@ namespace HexUtilities
 		{
 			return Subtract(center).Rotate(direction).Add(center);
 		}
+
+
+		public Hex reflectQ() { return new Hex(q, s, r); }
+		public Hex reflectR() { return new Hex(s, r, q); }
+		public Hex reflectS() { return new Hex(r, q, s); }
 
 		public override String ToString()
 		{
