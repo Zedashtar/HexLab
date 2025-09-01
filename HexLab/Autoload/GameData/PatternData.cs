@@ -97,6 +97,7 @@ public partial class PatternData : Node
 
     List<Hex> N_AdjacencyList(Hex[] _pattern)
     {
+        
         List<Hex> pattern_adjacents = new List<Hex>();
 
         foreach (Hex hex in _pattern)
@@ -110,12 +111,6 @@ public partial class PatternData : Node
             }
         }
 
-
-        // foreach (Hex hex in pattern_adjacents)
-        // {
-        //     GD.Print(hex.ToString());
-        // }
-
         return pattern_adjacents;
 
     }
@@ -123,118 +118,168 @@ public partial class PatternData : Node
 
     void NplusOne_Pattern(Hex[] _pattern)
     {
+        GD.Print("-------------------");
+        GD.Print("Starting Generation");
+        List<Hex[]> n_plus_one_patterns = new List<Hex[]>();
+
+
+
+        //Generate all possible n+1 patterns by adding one adjacent hex to the existing pattern
         List<Hex> _pattern_adjacents = N_AdjacencyList(_pattern);
         int _n = _pattern.Length;
         foreach (Hex hex in _pattern_adjacents)
         {
             List<Hex> new_pattern = _pattern.ToList();
-            List<Hex[]> output_patterns_list = new List<Hex[]>();
-
             new_pattern.Add(hex);
 
 
-            // Convert Hex to worldspace positions
-            List<Vector3> worldspace_positions = new List<Vector3>();
-            foreach (Hex h in new_pattern)
-            {
-                Vector3 worldspace_position = layout.GridToWorldspace(h);
-                worldspace_positions.Add(worldspace_position);
-            }
 
-            //Calculate Barycenter
-            Vector3 barycenter = Vector3.Zero;
-            foreach (var pos in worldspace_positions)
-            {
-                barycenter += pos;
-            }
-            barycenter /= worldspace_positions.Count;
-
-
-            //Get Closest Hex to Barycenter
-            Hex bary_hex = layout.WorldspaceToGrid(barycenter);
+            Hex bary_hex = CalculateBarycenter(new_pattern);
 
             // Center the pattern around the barycenter
             List<Hex> centered_pattern = new_pattern.Select(h => h.Subtract(bary_hex)).ToList();
 
-            if (!DuplicateCheck(centered_pattern, _n))
-            {
-                output_patterns_list.Add(centered_pattern.ToArray());
-                foreach (Hex[] pattern in output_patterns_list)
-                {
-                    GD.Print("New Pattern: " + string.Join(", ", pattern.Select(h => h.ToString())));
-                }
-            }
+            n_plus_one_patterns.Add(centered_pattern.ToArray());
 
 
         }
+
+        n_plus_one_patterns = GenerationCleanup(n_plus_one_patterns);
+
+
+        GD.Print("Generated " + n_plus_one_patterns.Count + " new patterns of size [" + (_n + 1) + "]");
+        foreach (Hex[] pattern in n_plus_one_patterns)
+        {
+            GD.Print("Pattern: " + String.Join(", ", pattern.Select(h => h.ToString())));
+        }
+        GD.Print("-------------------");
+
     }
 
-    bool DuplicateCheck(List<Hex> _pattern, int _n)
+
+    Hex CalculateBarycenter(List<Hex> _pattern)
     {
-        // Check if the pattern already exists in the data
-        if (ContentCheck(_pattern, _n)) { return true; }
+        // Convert Hex to worldspace positions
+        List<Vector3> worldspace_positions = new List<Vector3>();
+        foreach (Hex h in _pattern)
+        {
+            Vector3 worldspace_position = layout.GridToWorldspace(h);
+            worldspace_positions.Add(worldspace_position);
+        }
 
-        if (MirrorCheck(_pattern, _n)) { return true; } // Check for mirrored patterns
+        //Calculate Barycenter
+        Vector3 barycenter = Vector3.Zero;
+        foreach (var pos in worldspace_positions)
+        {
+            barycenter += pos;
+        }
+        barycenter /= worldspace_positions.Count;
 
-        if (RotateCheck(_pattern, _n)) { return true; } // Check for rotated patterns
+        //Get Closest Hex to Barycenter
+        Hex bary_hex = layout.WorldspaceToGrid(barycenter);
 
+        return bary_hex;
         
+    }
 
-        return false; // If no duplicates, mirrored or rotated patterns found, return false
+    List<Hex[]> GenerationCleanup(List<Hex[]> _pattern_list)
+    {
+        _pattern_list = RemoveDuplicates(_pattern_list);
+        _pattern_list = RemoveIBM(_pattern_list);
+        _pattern_list = RemoveIBR(_pattern_list);
+
+        return _pattern_list;
+    }
+
+    List<Hex[]> RemoveDuplicates(List<Hex[]> _patterns) //Remove exact duplicates in the same list
+    {
+        List<Hex[]> unique_patterns = new List<Hex[]>();
+        for (int i = _patterns.Count - 1; i >= 0; i--)
+        {
+            if (_patterns.Slice(0, i) == null) { break; }
+            if (!HasDuplicate(_patterns[i], _patterns.Slice(0, i))) { unique_patterns.Add(_patterns[i]); }
+        }
+        
+        unique_patterns.Reverse();
+        GD.Print("Removed "+ (_patterns.Count - unique_patterns.Count) + " duplicates.");
+        return unique_patterns;
+    }
+
+    List<Hex[]> RemoveIBM(List<Hex[]> _patterns) //Remove Identical by Mirror Symetry in the same list
+    {
+        List<Hex[]> unique_patterns = new List<Hex[]>();
+        for (int i = _patterns.Count - 1; i >= 0; i--)
+        {
+            if (_patterns.Slice(0, i) == null) { break; }
+            if (!HasIBM(_patterns[i], _patterns.Slice(0, i))) { unique_patterns.Add(_patterns[i]); }
+        }
+        
+        unique_patterns.Reverse();
+        
+        GD.Print("Removed "+ (_patterns.Count - unique_patterns.Count) + " IBM.");
+        return unique_patterns;
+    }
+
+    List<Hex[]> RemoveIBR(List<Hex[]> _patterns) //Remove Identical by Rotation in the same list
+    {
+        List<Hex[]> unique_patterns = new List<Hex[]>();
+        for (int i = _patterns.Count - 1; i >= 0; i--)
+        {
+            if (_patterns.Slice(0, i) == null) { break; }
+            if (!HasIBR(_patterns[i], _patterns.Slice(0, i))) { unique_patterns.Add(_patterns[i]); }
+        }
+        
+        unique_patterns.Reverse();
+        
+        GD.Print("Removed "+ (_patterns.Count - unique_patterns.Count) + " IBR.");
+        return unique_patterns;
+    }
+
+    bool HasDuplicate(Hex[] _target_pattern, List<Hex[]> _list_to_check)
+    {
+        return _list_to_check.Any(p => p.Length == _target_pattern.Length && p.All(h => _target_pattern.Contains(h)));
+    }
+
+    bool HasIBM(Hex[] _target_pattern, List<Hex[]> _list_to_check)
+    {
+        return (_list_to_check.Any(p => p.Length == _target_pattern.Length && p.All(h => _target_pattern.Contains(h.reflectQ())) ||
+                                        p.Length == _target_pattern.Length && p.All(h => _target_pattern.Contains(h.reflectR())) ||
+                                        p.Length == _target_pattern.Length && p.All(h => _target_pattern.Contains(h.reflectS())) ||
+                                        p.Length == _target_pattern.Length && p.All(h => _target_pattern.Contains(h.Negate())) ||
+                                        p.Length == _target_pattern.Length && p.All(h => _target_pattern.Contains(h.reflectQ().Negate())) ||
+                                        p.Length == _target_pattern.Length && p.All(h => _target_pattern.Contains(h.reflectR().Negate())) ||
+                                        p.Length == _target_pattern.Length && p.All(h => _target_pattern.Contains(h.reflectS().Negate()))
+                                         ));
 
     }
 
-    bool ContentCheck(List<Hex> _pattern, int _n)
-    {
-        if (Data[_n].Contains(_pattern.ToArray()) || PermutationCheck(_pattern, _n))
-        {
-            return true; 
-        }
-        return false;
-    }
-
-    bool MirrorCheck(List<Hex> _pattern, int _n)
+    bool HasIBR(Hex[] _target_pattern, List<Hex[]> _list_to_check)
     {
 
-        // Check for mirrored patterns
-        List<Hex> negated_Base = _pattern.Select(h => h.Negate()).ToList();
-        List<Hex> mirrored_patternQ = _pattern.Select(h => h.reflectQ()).ToList();
-        List<Hex> negatedQ = mirrored_patternQ.Select(h => h.Negate()).ToList();
-        List<Hex> mirrored_patternR = _pattern.Select(h => h.reflectR()).ToList();
-        List<Hex> negatedR = mirrored_patternR.Select(h => h.Negate()).ToList();
-        List<Hex> mirrored_patternS = _pattern.Select(h => h.reflectS()).ToList();
-        List<Hex> negatedS = mirrored_patternS.Select(h => h.Negate()).ToList();
-
-        if (ContentCheck(negated_Base, _n) ||
-            ContentCheck(mirrored_patternQ, _n) ||
-            ContentCheck(negatedQ, _n) ||
-            ContentCheck(mirrored_patternR, _n) ||
-            ContentCheck(negatedR, _n) ||
-            ContentCheck(mirrored_patternS, _n) ||
-            ContentCheck(negatedS, _n))
+        List<Hex[]> target_rotations = new List<Hex[]>();
+        
+        // Generate all 5 rotations of the target pattern
+        for (int i = 1; i < 6; i++)
         {
-            return true; // If any mirrored pattern exists, return true
+            int rotation_index = i;
+            int j = 0;
+            Hex[] rotated_pattern = _target_pattern;
+            while (j < rotation_index)
+            {
+                rotated_pattern = rotated_pattern.Select(h => h.Rotate(Hex.RotateDirection.Clockwise)).ToArray();
+                j++;
+            }
+            target_rotations.Add(rotated_pattern);
         }
 
-        else return false;
 
-    }
-
-    bool RotateCheck(List<Hex> _pattern, int _n)
-    {
-        // Check for rotated patterns
-        List<Hex> rotated_pattern = _pattern.Select(h => h.Rotate(Hex.RotateDirection.Clockwise)).ToList();
-        if (ContentCheck(rotated_pattern, _n)) { return true; }
-        if (MirrorCheck(rotated_pattern, _n)) { return true; }
-
-        // Check for all 5 rotations
-        for (int i = 0; i < 5; i++)
+        // Check if any rotation of the target pattern exists in the list
+        foreach (Hex[] rotated_pattern in target_rotations)
         {
-            rotated_pattern = rotated_pattern.Select(h => h.Rotate(Hex.RotateDirection.Clockwise)).ToList();
-            if (ContentCheck(rotated_pattern, _n)) { return true; }
-            if (MirrorCheck(rotated_pattern, _n)) { return true; }
+            if (_list_to_check.Any(p => p.Length == rotated_pattern.Length && p.All(h => rotated_pattern.Contains(h))))
+            { return true; }
         }
-
+        
         return false;
     }
     
