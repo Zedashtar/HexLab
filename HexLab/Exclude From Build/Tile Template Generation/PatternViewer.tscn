@@ -1,0 +1,164 @@
+[gd_scene load_steps=30 format=3 uid="uid://mn78em5ucy56"]
+
+[ext_resource type="Script" uid="uid://bb1tw0dseqnn" path="res://WorldScene/world_scene_input.gd" id="1_8xs4e"]
+[ext_resource type="Resource" uid="uid://daamoqjc0qfj" path="res://Input/World_InputContext.tres" id="2_oj6hg"]
+[ext_resource type="Script" uid="uid://cvvhknwhvwy5r" path="res://addons/statemachine/statemachine.gd" id="3_hjl8a"]
+[ext_resource type="Script" uid="uid://chhdi5g3kncyf" path="res://addons/statemachine/state.gd" id="4_pqp48"]
+[ext_resource type="Script" uid="uid://ddu3adi7755fd" path="res://WorldScene/HexGrid.cs" id="5_fb1vt"]
+[ext_resource type="Shader" uid="uid://bqs8kvwn2rqa8" path="res://WorldScene/primed_overlay__shader.tres" id="6_pe7y0"]
+[ext_resource type="ArrayMesh" uid="uid://c4hw5wtu148y6" path="res://WorldScene/HexOverlay.mesh" id="7_6soef"]
+[ext_resource type="Script" uid="uid://bfytetk6gvvi5" path="res://WorldScene/PrimedOverlay.cs" id="8_6e7n4"]
+[ext_resource type="Shader" uid="uid://c4lpxg3vm7jrg" path="res://WorldScene/grid_shader.tres" id="9_1fo4r"]
+[ext_resource type="Script" uid="uid://byiwpd5ax2egn" path="res://WorldScene/GridMesh.cs" id="10_74nb8"]
+[ext_resource type="Script" uid="uid://dy0nbx6mhucnq" path="res://Camera/camera_rig.gd" id="11_rxdf6"]
+[ext_resource type="Resource" uid="uid://b40y5aklvxj6l" path="res://Input/camera_move.tres" id="12_7mq6b"]
+[ext_resource type="Resource" uid="uid://bysqf2ww3gys8" path="res://Input/camera_mouse_move.tres" id="13_t27uh"]
+[ext_resource type="Resource" uid="uid://b4g1auaprdr5b" path="res://Input/camera_mouse_toggle_translation.tres" id="14_8oktv"]
+[ext_resource type="Resource" uid="uid://d0yeeake70i6x" path="res://Input/camera_rotate.tres" id="15_bvano"]
+[ext_resource type="Resource" uid="uid://d4eooh6db0bh5" path="res://Input/camera_mouse_rotate.tres" id="16_avm14"]
+[ext_resource type="Resource" uid="uid://casctkinnhgtm" path="res://Input/camera_mouse_toggle_rotation.tres" id="17_ah14n"]
+[ext_resource type="Resource" uid="uid://f65pm45osika" path="res://Input/camera_zoom.tres" id="18_cu4ww"]
+[ext_resource type="Script" uid="uid://q1uspa3128k6" path="res://Camera/CameraPath.gd" id="19_rrr1q"]
+[ext_resource type="Script" uid="uid://bubgi7afdes3w" path="res://Camera/MainCamera.gd" id="20_7o0w7"]
+[ext_resource type="Script" uid="uid://fnsdr3pmfyxa" path="res://WorldScene/WorldManager.cs" id="21_2hhpi"]
+[ext_resource type="PackedScene" uid="uid://diyxsy4khqxlm" path="res://Tiles/Prefabs/tile_placeholder.tscn" id="22_h11g8"]
+[ext_resource type="Script" uid="uid://ba3ak6fv8dwlm" path="res://Exclude From Build/Tile Template Generation/PatternDataGeneration.cs" id="23_mc0ck"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_deult"]
+render_priority = 0
+shader = ExtResource("6_pe7y0")
+shader_parameter/ScaleMinMax = Vector2(0.86, 0.9)
+shader_parameter/BlinkSpeedMultiplier = 4.0
+
+[sub_resource type="MultiMesh" id="MultiMesh_6frrs"]
+transform_format = 1
+mesh = ExtResource("7_6soef")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jyc4g"]
+render_priority = 0
+shader = ExtResource("9_1fo4r")
+shader_parameter/Scaling = 13.45
+shader_parameter/Offset = Vector2(0.775, 0.177)
+shader_parameter/Center = Vector2(0.5, 0.5)
+shader_parameter/Strength = 5.871
+shader_parameter/Size = 3.919
+shader_parameter/Inner_Cutoff = 0.0
+shader_parameter/Metallic = 1.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1lxk4"]
+size = Vector2(20, 20)
+
+[sub_resource type="Curve3D" id="Curve3D_3bfkj"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 5, 4, 0, 0, 0, 0, 0, 0, 0.125643, 5, 3.99803, 0, 0, 0, 0, 0, 0, 0.251162, 5, 3.99211, 0, 0, 0, 0, 0, 0, 0.376433, 5, 3.98225, 0, 0, 0, 0, 0, 0, 0.501333, 5, 3.96846, 0, 0, 0, 0, 0, 0, 0.625738, 5, 3.95075, 0, 0, 0, 0, 0, 0, 0.749525, 5, 3.92915, 0, 0, 0, 0, 0, 0, 0.872573, 5, 3.90367, 0, 0, 0, 0, 0, 0, 0.99476, 5, 3.87433, 0, 0, 0, 0, 0, 0, 1.11596, 5, 3.84117, 0, 0, 0, 0, 0, 0, 1.23607, 5, 3.80423, 0, 0, 0, 0, 0, 0, 1.35495, 5, 3.76352, 0, 0, 0, 0, 0, 0, 1.4725, 5, 3.71911, 0, 0, 0, 0, 0, 0, 1.58859, 5, 3.67102, 0, 0, 0, 0, 0, 0, 1.70312, 5, 3.61931, 0, 0, 0, 0, 0, 0, 1.81596, 5, 3.56403, 0, 0, 0, 0, 0, 0, 1.92701, 5, 3.50523, 0, 0, 0, 0, 0, 0, 2.03617, 5, 3.44297, 0, 0, 0, 0, 0, 0, 2.14331, 5, 3.37731, 0, 0, 0, 0, 0, 0, 2.24833, 5, 3.30832, 0, 0, 0, 0, 0, 0, 2.35114, 5, 3.23607, 0, 0, 0, 0, 0, 0, 2.45163, 5, 3.16062, 0, 0, 0, 0, 0, 0, 2.5497, 5, 3.08205, 0, 0, 0, 0, 0, 0, 2.64525, 5, 3.00044, 0, 0, 0, 0, 0, 0, 2.73819, 5, 2.91587, 0, 0, 0, 0, 0, 0, 2.82843, 5, 2.82843, 0, 0, 0, 0, 0, 0, 2.91587, 5, 2.73819, 0, 0, 0, 0, 0, 0, 3.00044, 5, 2.64525, 0, 0, 0, 0, 0, 0, 3.08205, 5, 2.5497, 0, 0, 0, 0, 0, 0, 3.16062, 5, 2.45163, 0, 0, 0, 0, 0, 0, 3.23607, 5, 2.35114, 0, 0, 0, 0, 0, 0, 3.30832, 5, 2.24833, 0, 0, 0, 0, 0, 0, 3.37731, 5, 2.14331, 0, 0, 0, 0, 0, 0, 3.44297, 5, 2.03617, 0, 0, 0, 0, 0, 0, 3.50523, 5, 1.92701, 0, 0, 0, 0, 0, 0, 3.56403, 5, 1.81596, 0, 0, 0, 0, 0, 0, 3.61931, 5, 1.70312, 0, 0, 0, 0, 0, 0, 3.67102, 5, 1.58859, 0, 0, 0, 0, 0, 0, 3.71911, 5, 1.4725, 0, 0, 0, 0, 0, 0, 3.76352, 5, 1.35495, 0, 0, 0, 0, 0, 0, 3.80423, 5, 1.23607, 0, 0, 0, 0, 0, 0, 3.84117, 5, 1.11596, 0, 0, 0, 0, 0, 0, 3.87433, 5, 0.99476, 0, 0, 0, 0, 0, 0, 3.90367, 5, 0.872573, 0, 0, 0, 0, 0, 0, 3.92915, 5, 0.749525, 0, 0, 0, 0, 0, 0, 3.95075, 5, 0.625738, 0, 0, 0, 0, 0, 0, 3.96846, 5, 0.501333, 0, 0, 0, 0, 0, 0, 3.98225, 5, 0.376433, 0, 0, 0, 0, 0, 0, 3.99211, 5, 0.251162, 0, 0, 0, 0, 0, 0, 3.99803, 5, 0.125643, 0, 0, 0, 0, 0, 0, 4, 5, -1.74846e-07, 0, 0, 0, 0, 0, 0, 3.99803, 5, -0.125643, 0, 0, 0, 0, 0, 0, 3.99211, 5, -0.251162, 0, 0, 0, 0, 0, 0, 3.98225, 5, -0.376433, 0, 0, 0, 0, 0, 0, 3.96846, 5, -0.501333, 0, 0, 0, 0, 0, 0, 3.95075, 5, -0.625738, 0, 0, 0, 0, 0, 0, 3.92915, 5, -0.749525, 0, 0, 0, 0, 0, 0, 3.90367, 5, -0.872573, 0, 0, 0, 0, 0, 0, 3.87433, 5, -0.99476, 0, 0, 0, 0, 0, 0, 3.84117, 5, -1.11596, 0, 0, 0, 0, 0, 0, 3.80423, 5, -1.23607, 0, 0, 0, 0, 0, 0, 3.76352, 5, -1.35495, 0, 0, 0, 0, 0, 0, 3.71911, 5, -1.4725, 0, 0, 0, 0, 0, 0, 3.67102, 5, -1.58859, 0, 0, 0, 0, 0, 0, 3.61931, 5, -1.70312, 0, 0, 0, 0, 0, 0, 3.56403, 5, -1.81596, 0, 0, 0, 0, 0, 0, 3.50523, 5, -1.92701, 0, 0, 0, 0, 0, 0, 3.44297, 5, -2.03617, 0, 0, 0, 0, 0, 0, 3.37731, 5, -2.14331, 0, 0, 0, 0, 0, 0, 3.30832, 5, -2.24833, 0, 0, 0, 0, 0, 0, 3.23607, 5, -2.35114, 0, 0, 0, 0, 0, 0, 3.16062, 5, -2.45163, 0, 0, 0, 0, 0, 0, 3.08205, 5, -2.5497, 0, 0, 0, 0, 0, 0, 3.00044, 5, -2.64525, 0, 0, 0, 0, 0, 0, 2.91587, 5, -2.73819, 0, 0, 0, 0, 0, 0, 2.82843, 5, -2.82843, 0, 0, 0, 0, 0, 0, 2.73819, 5, -2.91587, 0, 0, 0, 0, 0, 0, 2.64525, 5, -3.00044, 0, 0, 0, 0, 0, 0, 2.5497, 5, -3.08205, 0, 0, 0, 0, 0, 0, 2.45163, 5, -3.16062, 0, 0, 0, 0, 0, 0, 2.35114, 5, -3.23607, 0, 0, 0, 0, 0, 0, 2.24833, 5, -3.30832, 0, 0, 0, 0, 0, 0, 2.14331, 5, -3.37731, 0, 0, 0, 0, 0, 0, 2.03617, 5, -3.44297, 0, 0, 0, 0, 0, 0, 1.92702, 5, -3.50523, 0, 0, 0, 0, 0, 0, 1.81596, 5, -3.56403, 0, 0, 0, 0, 0, 0, 1.70312, 5, -3.61931, 0, 0, 0, 0, 0, 0, 1.58859, 5, -3.67102, 0, 0, 0, 0, 0, 0, 1.4725, 5, -3.71911, 0, 0, 0, 0, 0, 0, 1.35495, 5, -3.76352, 0, 0, 0, 0, 0, 0, 1.23607, 5, -3.80423, 0, 0, 0, 0, 0, 0, 1.11596, 5, -3.84117, 0, 0, 0, 0, 0, 0, 0.99476, 5, -3.87433, 0, 0, 0, 0, 0, 0, 0.872573, 5, -3.90367, 0, 0, 0, 0, 0, 0, 0.749525, 5, -3.92915, 0, 0, 0, 0, 0, 0, 0.625738, 5, -3.95075, 0, 0, 0, 0, 0, 0, 0.501333, 5, -3.96846, 0, 0, 0, 0, 0, 0, 0.376433, 5, -3.98225, 0, 0, 0, 0, 0, 0, 0.251162, 5, -3.99211, 0, 0, 0, 0, 0, 0, 0.125643, 5, -3.99803, 0, 0, 0, 0, 0, 0, -3.49691e-07, 5, -4, 0, 0, 0, 0, 0, 0, -0.125643, 5, -3.99803, 0, 0, 0, 0, 0, 0, -0.251163, 5, -3.99211, 0, 0, 0, 0, 0, 0, -0.376433, 5, -3.98225, 0, 0, 0, 0, 0, 0, -0.501333, 5, -3.96846, 0, 0, 0, 0, 0, 0, -0.625737, 5, -3.95075, 0, 0, 0, 0, 0, 0, -0.749525, 5, -3.92915, 0, 0, 0, 0, 0, 0, -0.872573, 5, -3.90367, 0, 0, 0, 0, 0, 0, -0.994759, 5, -3.87433, 0, 0, 0, 0, 0, 0, -1.11596, 5, -3.84117, 0, 0, 0, 0, 0, 0, -1.23607, 5, -3.80423, 0, 0, 0, 0, 0, 0, -1.35495, 5, -3.76352, 0, 0, 0, 0, 0, 0, -1.4725, 5, -3.71911, 0, 0, 0, 0, 0, 0, -1.58859, 5, -3.67102, 0, 0, 0, 0, 0, 0, -1.70312, 5, -3.61931, 0, 0, 0, 0, 0, 0, -1.81596, 5, -3.56403, 0, 0, 0, 0, 0, 0, -1.92701, 5, -3.50523, 0, 0, 0, 0, 0, 0, -2.03617, 5, -3.44297, 0, 0, 0, 0, 0, 0, -2.14331, 5, -3.37731, 0, 0, 0, 0, 0, 0, -2.24833, 5, -3.30832, 0, 0, 0, 0, 0, 0, -2.35114, 5, -3.23607, 0, 0, 0, 0, 0, 0, -2.45163, 5, -3.16062, 0, 0, 0, 0, 0, 0, -2.5497, 5, -3.08205, 0, 0, 0, 0, 0, 0, -2.64525, 5, -3.00044, 0, 0, 0, 0, 0, 0, -2.73819, 5, -2.91587, 0, 0, 0, 0, 0, 0, -2.82843, 5, -2.82843, 0, 0, 0, 0, 0, 0, -2.91587, 5, -2.73819, 0, 0, 0, 0, 0, 0, -3.00044, 5, -2.64525, 0, 0, 0, 0, 0, 0, -3.08205, 5, -2.5497, 0, 0, 0, 0, 0, 0, -3.16062, 5, -2.45163, 0, 0, 0, 0, 0, 0, -3.23607, 5, -2.35114, 0, 0, 0, 0, 0, 0, -3.30832, 5, -2.24833, 0, 0, 0, 0, 0, 0, -3.37731, 5, -2.14331, 0, 0, 0, 0, 0, 0, -3.44297, 5, -2.03617, 0, 0, 0, 0, 0, 0, -3.50523, 5, -1.92702, 0, 0, 0, 0, 0, 0, -3.56403, 5, -1.81596, 0, 0, 0, 0, 0, 0, -3.61931, 5, -1.70312, 0, 0, 0, 0, 0, 0, -3.67102, 5, -1.58859, 0, 0, 0, 0, 0, 0, -3.71911, 5, -1.4725, 0, 0, 0, 0, 0, 0, -3.76352, 5, -1.35495, 0, 0, 0, 0, 0, 0, -3.80423, 5, -1.23607, 0, 0, 0, 0, 0, 0, -3.84117, 5, -1.11596, 0, 0, 0, 0, 0, 0, -3.87433, 5, -0.99476, 0, 0, 0, 0, 0, 0, -3.90367, 5, -0.872573, 0, 0, 0, 0, 0, 0, -3.92915, 5, -0.749525, 0, 0, 0, 0, 0, 0, -3.95075, 5, -0.625738, 0, 0, 0, 0, 0, 0, -3.96846, 5, -0.501333, 0, 0, 0, 0, 0, 0, -3.98225, 5, -0.376433, 0, 0, 0, 0, 0, 0, -3.99211, 5, -0.251162, 0, 0, 0, 0, 0, 0, -3.99803, 5, -0.125643, 0, 0, 0, 0, 0, 0, -4, 5, 4.76995e-08, 0, 0, 0, 0, 0, 0, -3.99803, 5, 0.125643, 0, 0, 0, 0, 0, 0, -3.99211, 5, 0.251162, 0, 0, 0, 0, 0, 0, -3.98225, 5, 0.376433, 0, 0, 0, 0, 0, 0, -3.96846, 5, 0.501333, 0, 0, 0, 0, 0, 0, -3.95075, 5, 0.625738, 0, 0, 0, 0, 0, 0, -3.92915, 5, 0.749526, 0, 0, 0, 0, 0, 0, -3.90367, 5, 0.872573, 0, 0, 0, 0, 0, 0, -3.87433, 5, 0.99476, 0, 0, 0, 0, 0, 0, -3.84117, 5, 1.11596, 0, 0, 0, 0, 0, 0, -3.80423, 5, 1.23607, 0, 0, 0, 0, 0, 0, -3.76352, 5, 1.35495, 0, 0, 0, 0, 0, 0, -3.71911, 5, 1.4725, 0, 0, 0, 0, 0, 0, -3.67102, 5, 1.58859, 0, 0, 0, 0, 0, 0, -3.61931, 5, 1.70312, 0, 0, 0, 0, 0, 0, -3.56403, 5, 1.81596, 0, 0, 0, 0, 0, 0, -3.50523, 5, 1.92702, 0, 0, 0, 0, 0, 0, -3.44297, 5, 2.03617, 0, 0, 0, 0, 0, 0, -3.37731, 5, 2.14331, 0, 0, 0, 0, 0, 0, -3.30832, 5, 2.24833, 0, 0, 0, 0, 0, 0, -3.23607, 5, 2.35114, 0, 0, 0, 0, 0, 0, -3.16062, 5, 2.45163, 0, 0, 0, 0, 0, 0, -3.08205, 5, 2.5497, 0, 0, 0, 0, 0, 0, -3.00044, 5, 2.64525, 0, 0, 0, 0, 0, 0, -2.91587, 5, 2.73819, 0, 0, 0, 0, 0, 0, -2.82843, 5, 2.82843, 0, 0, 0, 0, 0, 0, -2.73819, 5, 2.91587, 0, 0, 0, 0, 0, 0, -2.64525, 5, 3.00044, 0, 0, 0, 0, 0, 0, -2.5497, 5, 3.08205, 0, 0, 0, 0, 0, 0, -2.45163, 5, 3.16062, 0, 0, 0, 0, 0, 0, -2.35114, 5, 3.23607, 0, 0, 0, 0, 0, 0, -2.24833, 5, 3.30832, 0, 0, 0, 0, 0, 0, -2.14331, 5, 3.37731, 0, 0, 0, 0, 0, 0, -2.03617, 5, 3.44297, 0, 0, 0, 0, 0, 0, -1.92701, 5, 3.50523, 0, 0, 0, 0, 0, 0, -1.81596, 5, 3.56403, 0, 0, 0, 0, 0, 0, -1.70312, 5, 3.61931, 0, 0, 0, 0, 0, 0, -1.58859, 5, 3.67102, 0, 0, 0, 0, 0, 0, -1.4725, 5, 3.71911, 0, 0, 0, 0, 0, 0, -1.35495, 5, 3.76352, 0, 0, 0, 0, 0, 0, -1.23607, 5, 3.80423, 0, 0, 0, 0, 0, 0, -1.11596, 5, 3.84117, 0, 0, 0, 0, 0, 0, -0.994759, 5, 3.87433, 0, 0, 0, 0, 0, 0, -0.872573, 5, 3.90367, 0, 0, 0, 0, 0, 0, -0.749525, 5, 3.92915, 0, 0, 0, 0, 0, 0, -0.625737, 5, 3.95075, 0, 0, 0, 0, 0, 0, -0.501332, 5, 3.96846, 0, 0, 0, 0, 0, 0, -0.376433, 5, 3.98225, 0, 0, 0, 0, 0, 0, -0.251161, 5, 3.99211, 0, 0, 0, 0, 0, 0, -0.125642, 5, 3.99803, 0, 0, 0, 0, 0, 0, 0, 5, 4),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 201
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k3jcv"]
+bg_color = Color(0.151276, 0.151276, 0.151276, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="World" type="Node3D"]
+
+[node name="InputContext" type="Node" parent="."]
+script = ExtResource("1_8xs4e")
+context = ExtResource("2_oj6hg")
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_hjl8a")
+initial_state = NodePath("Empty")
+
+[node name="Empty" type="Node" parent="StateMachine"]
+script = ExtResource("4_pqp48")
+
+[node name="HexGrid" type="Node3D" parent="." node_paths=PackedStringArray("coordinate_display")]
+unique_name_in_owner = true
+script = ExtResource("5_fb1vt")
+tile_size = Vector2(0.5, 0.5)
+coordinate_display = NodePath("../Testing Feedback/TileCoordinates")
+
+[node name="Overlay" type="Node3D" parent="."]
+
+[node name="PrimedOverlay" type="MultiMeshInstance3D" parent="Overlay"]
+material_override = SubResource("ShaderMaterial_deult")
+multimesh = SubResource("MultiMesh_6frrs")
+script = ExtResource("8_6e7n4")
+mesh_height = -0.1
+
+[node name="GridMesh" type="MeshInstance3D" parent="Overlay" node_paths=PackedStringArray("camera_rig")]
+material_override = SubResource("ShaderMaterial_jyc4g")
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_1lxk4")
+skeleton = NodePath("../..")
+script = ExtResource("10_74nb8")
+camera_rig = NodePath("../../CameraRig")
+height = -0.1
+
+[node name="CameraRig" type="Node3D" parent="."]
+script = ExtResource("11_rxdf6")
+move_action = ExtResource("12_7mq6b")
+mouse_move_action = ExtResource("13_t27uh")
+mouse_move_toggle = ExtResource("14_8oktv")
+move_speed = Vector2(6, 20)
+rotate_action = ExtResource("15_bvano")
+mouse_rotate_action = ExtResource("16_avm14")
+mouse_rotate_toggle = ExtResource("17_ah14n")
+rotate_speed = 0.5
+zoom_action = ExtResource("18_cu4ww")
+zoom_speed = 500.0
+zoom_duration = 0.15
+zoom_clamp = Vector2(30, 100)
+
+[node name="CameraPath" type="Path3D" parent="CameraRig"]
+curve = SubResource("Curve3D_3bfkj")
+script = ExtResource("19_rrr1q")
+radius = 4.0
+height = 5.0
+
+[node name="CameraAnchor" type="PathFollow3D" parent="CameraRig/CameraPath"]
+transform = Transform3D(0.99999, 0, 0, 0, 1, 0, 0, 0, 0.99999, 0, 5, 4)
+rotation_mode = 0
+
+[node name="MainCamera" type="Camera3D" parent="CameraRig/CameraPath/CameraAnchor" node_paths=PackedStringArray("target")]
+transform = Transform3D(1, 0, 0, 0, 0.624691, 0.780872, 0, -0.780872, 0.624691, 0, 0, 0)
+fov = 20.3
+script = ExtResource("20_7o0w7")
+target = NodePath("../../..")
+
+[node name="WorldManager" type="Node3D" parent="." node_paths=PackedStringArray("primed_overlay")]
+unique_name_in_owner = true
+script = ExtResource("21_2hhpi")
+primed_overlay = NodePath("../Overlay/PrimedOverlay")
+test_tile = ExtResource("22_h11g8")
+
+[node name="TileContainer" type="Node3D" parent="WorldManager"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.977966, -0.206163, 0.0328596, 0, 0.1574, 0.987535, -0.208765, -0.965775, 0.153932, 0, 6, 0)
+
+[node name="Testing Feedback" type="CanvasLayer" parent="."]
+
+[node name="TileCoordinates" type="Label" parent="Testing Feedback"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_right = 40.0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.907942, 0.907942, 0.907942, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_k3jcv")
+
+[node name="Pattern Generator" type="CanvasLayer" parent="."]
+script = ExtResource("23_mc0ck")
+max_generation_size = 5
+
+[node name="Generate Button" type="Button" parent="Pattern Generator"]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Generate"
+
+[connection signal="button_down" from="Pattern Generator/Generate Button" to="Pattern Generator" method="StartGeneration"]
