@@ -9,6 +9,10 @@ using Newtonsoft.Json;
 public partial class PatternData : Node
 {
 
+    [Export] int max_generation_size = 3;
+
+
+
     Layout layout = new Layout(Layout.flat, new Vector2(0.5f, 0.5f), Vector3.Zero);
 
     string path = "res://Autoload/GameData/patterns.json";
@@ -36,8 +40,46 @@ public partial class PatternData : Node
     {
         //SavePatternsToFile();
         LoadPatternsFromFile();
-        NplusOne_Pattern(Data[2][0]);
+        //NplusOne_Pattern(Data[2][0]);
+        StartGeneration(max_generation_size);
 
+    }
+
+    public void StartGeneration(int _max_generation_size)
+    {
+        GD.Print("-------------------");
+        GD.Print("Starting Full Generation up to size [" + _max_generation_size + "]");
+        for (int n = 2; n < _max_generation_size; n++)
+        {
+            patternBuilder(n);
+        }
+
+        GD.Print("Full Generation Complete");
+        GD.Print("-------------------");
+    }
+
+    void patternBuilder(int _n)
+    {
+        GD.Print("-------------------");
+        GD.Print("Starting Generation for size [" + (_n + 1) + "]");
+
+        List<Hex[]> output = new List<Hex[]>();
+        foreach (Hex[] pattern in Data[_n])
+        {
+            output = output.Concat(NplusOne_Pattern(pattern)).ToList();
+        }
+
+        output = GenerationCleanup(output);
+
+
+        GD.Print("Generated " + output.Count + " new patterns of size [" + (_n + 1) + "]");
+        foreach (Hex[] pattern in output)
+        {
+            GD.Print("Pattern: " + String.Join(", ", pattern.Select(h => h.ToString())));
+        }
+        GD.Print("-------------------");
+        
+        Data[_n + 1] = output.ToArray();
     }
 
 
@@ -69,7 +111,7 @@ public partial class PatternData : Node
             }
             else
             {
-                GD.PrintErr("Cannot load patterns in runtime, file does not exist and is not created in editor mode.");
+                GD.PrintErr("Cannot load patterns in runtime, file does not exist and has not been created in editor mode.");
                 return;
             }
 
@@ -89,11 +131,6 @@ public partial class PatternData : Node
         json.Close();
     }
 
-
-    void PaternBuilder()
-    {
-
-    }
 
     List<Hex> N_AdjacencyList(Hex[] _pattern)
     {
@@ -116,10 +153,8 @@ public partial class PatternData : Node
     }
 
 
-    void NplusOne_Pattern(Hex[] _pattern)
+    List<Hex[]> NplusOne_Pattern(Hex[] _pattern)
     {
-        GD.Print("-------------------");
-        GD.Print("Starting Generation");
         List<Hex[]> n_plus_one_patterns = new List<Hex[]>();
 
 
@@ -146,13 +181,7 @@ public partial class PatternData : Node
 
         n_plus_one_patterns = GenerationCleanup(n_plus_one_patterns);
 
-
-        GD.Print("Generated " + n_plus_one_patterns.Count + " new patterns of size [" + (_n + 1) + "]");
-        foreach (Hex[] pattern in n_plus_one_patterns)
-        {
-            GD.Print("Pattern: " + String.Join(", ", pattern.Select(h => h.ToString())));
-        }
-        GD.Print("-------------------");
+        return n_plus_one_patterns;
 
     }
 
