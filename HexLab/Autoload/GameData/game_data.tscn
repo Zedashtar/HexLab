@@ -9,3 +9,4 @@ patterns = NodePath("Patterns")
 
 [node name="Patterns" type="Node" parent="."]
 script = ExtResource("2_a7052")
+max_generation_size = 5

@@ -78,6 +78,8 @@ public partial class PatternData : Node
             GD.Print("Pattern: " + String.Join(", ", pattern.Select(h => h.ToString())));
         }
         GD.Print("-------------------");
+
+        List<Hex[][]> new_data = Data.ToList();
         
         Data[_n + 1] = output.ToArray();
     }
@@ -129,6 +131,17 @@ public partial class PatternData : Node
         Data = JsonConvert.DeserializeObject<Hex[][][]>(pattern_data);
 
         json.Close();
+
+        if (Data.Length - 1 < max_generation_size)
+        {
+            GD.Print("pattern_data max reccorded pattern size is  [" + (Data.Length - 1) + "] is less than max generation size [" + max_generation_size + "]. Extending array.");
+            Hex[][][] array_extension = Enumerable.Repeat(new Hex[0][], max_generation_size - Data.Length + 1).ToArray();
+            Data = Data.Concat(array_extension).ToArray();
+            GD.Print("Array extended to max pattern size [" + (Data.Length - 1) + "]");
+            
+        }
+
+
     }
 
 
