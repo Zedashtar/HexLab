@@ -13,6 +13,7 @@ public partial class PatternDataGeneration : Node
     Layout layout = new Layout(Layout.flat, new Vector2(0.5f, 0.5f), Vector3.Zero);
 
     PatternData autoload_data;
+    [Signal] public delegate void GenerationCompleteEventHandler();
     string path = "res://Autoload/GameData/patterns.json";
 
     public Hex[][][] Data;  // Stores Tiles pattern data with following formatting : Hex[n][p][t] wher
@@ -43,7 +44,7 @@ public partial class PatternDataGeneration : Node
 
     public void SavePatternsToFile()
     {
-        if (!Engine.IsEditorHint()) { return; } // Ensure this runs only in the editor and is not modifiable by player
+        // if (!Engine.IsEditorHint()) { return; } // Ensure this runs only in the editor and is not modifiable by player
 
         using var json = FileAccess.Open(path, FileAccess.ModeFlags.WriteRead);
 
@@ -68,7 +69,7 @@ public partial class PatternDataGeneration : Node
             GD.Print("No existing pattern data found. Initializing with base patterns.");
             Data = patterns_base;
         }
-        
+
 
         GD.Print("-------------------");
         GD.Print("Starting Full Generation up to size [" + max_generation_size + "]");
@@ -83,7 +84,7 @@ public partial class PatternDataGeneration : Node
             GD.Print("Array extended to max pattern size [" + (Data.Length - 1) + "]");
 
         }
-        
+
         for (int n = 2; n < max_generation_size; n++)
         {
             patternBuilder(n);
@@ -95,6 +96,7 @@ public partial class PatternDataGeneration : Node
         GD.Print("Updating Autoload Data");
         autoload_data.LoadPatternsFromFile();
         GD.Print("-------------------");
+        EmitSignal(SignalName.GenerationComplete);
     }
 
     void patternBuilder(int _n)
@@ -123,7 +125,7 @@ public partial class PatternDataGeneration : Node
         Data[_n + 1] = output.ToArray();
     }
 
-
+#region Helper Functions
     List<Hex> N_AdjacencyList(Hex[] _pattern)
     {
         
@@ -258,6 +260,10 @@ public partial class PatternDataGeneration : Node
         return unique_patterns;
     }
 
+    #endregion
+
+    #region Condition Checkers
+
     bool HasDuplicate(Hex[] _target_pattern, List<Hex[]> _list_to_check)
     {
         return _list_to_check.Any(p => p.Length == _target_pattern.Length && p.All(h => _target_pattern.Contains(h)));
@@ -305,23 +311,8 @@ public partial class PatternDataGeneration : Node
         
         return false;
     }
-    
-    bool PermutationCheck(List<Hex> _pattern, int _n)
-    {
-        foreach (Hex[] existing_pattern in Data[_n])
-        {
-            int count = 0;
-            for (int i = 0; i < _pattern.Count; i++)
-            {
-                if (existing_pattern.Contains(_pattern[i])) { count++; }
-            }
-            
-            if (count == _pattern.Count) { return true; }
-            
-        }
 
+    #endregion
 
-        return false;
-    }
 
 }

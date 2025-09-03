@@ -31,7 +31,7 @@ public partial class WorldManager : Node3D
 		//if World Loader passes a World, Load World Here
 		//Else
 		world = new WorldResource();
-		Init_Test();
+		//Init_Test();
 		//DebugDisplayContent();
 	}
 
@@ -71,7 +71,7 @@ public partial class WorldManager : Node3D
 		world.tiles.Add(h.ToVector3(), _tile.type.ToString());
 	}
 
-	private void AddTileSingle(Hex h)
+	public void AddTileSingle(Hex h)
 	{
 		if (!world.tiles.ContainsKey(h.ToVector3()))
 		{
@@ -80,7 +80,7 @@ public partial class WorldManager : Node3D
 		}
 	}
 
-	private void AddTileMultiple(List<Hex> hexes)
+	public void AddTileMultiple(List<Hex> hexes)
 	{
 		foreach (Hex h in hexes)
 		{
@@ -88,6 +88,17 @@ public partial class WorldManager : Node3D
 			{
 				_base_add_tile(h);
 			}
+		}
+
+		UpdatePrimedSites();
+	}
+
+	public void ClearTiles()
+	{
+		world.tiles.Clear();
+		foreach (Node3D n in tile_container.GetChildren())
+		{
+			n.QueueFree();
 		}
 
 		UpdatePrimedSites();
@@ -106,11 +117,11 @@ public partial class WorldManager : Node3D
 
 			foreach (Hex j in _adjacents)
 			{
-				if (!world.tiles.ContainsKey(j.ToVector3())	&& !_sites.Contains(j))  _sites.Add(j);
-			}	
+				if (!world.tiles.ContainsKey(j.ToVector3()) && !_sites.Contains(j)) _sites.Add(j);
+			}
 		}
-		
-		primed_sites =_sites;
+
+		primed_sites = _sites;
 		primed_overlay.UpdateOverlay(primed_sites);
 
 	}
