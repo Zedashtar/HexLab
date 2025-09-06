@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://mn78em5ucy56"]
+[gd_scene load_steps=57 format=3 uid="uid://mn78em5ucy56"]
 
 [ext_resource type="Script" uid="uid://bb1tw0dseqnn" path="res://WorldScene/world_scene_input.gd" id="1_8xs4e"]
 [ext_resource type="Resource" uid="uid://daamoqjc0qfj" path="res://Input/World_InputContext.tres" id="2_oj6hg"]
@@ -86,6 +86,12 @@ corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yjc64"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_1ilts"]
+font_size = 14
+font_color = Color(1, 0.333919, 0.244163, 1)
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6vjcn"]
 load_path = "res://.godot/imported/SystemIcons.png-5850a0ddbf58714aedbacc7446347ab5.ctex"
@@ -236,11 +242,12 @@ grow_vertical = 0
 theme_override_colors/font_color = Color(0.907942, 0.907942, 0.907942, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_k3jcv")
 
-[node name="Pattern Editor" type="CanvasLayer" parent="." node_paths=PackedStringArray("pattern_holder", "sizeDropdown", "indexDropdown")]
+[node name="Pattern Editor" type="CanvasLayer" parent="." node_paths=PackedStringArray("pattern_holder", "sizeDropdown", "indexDropdown", "save_pattern_popup")]
 script = ExtResource("23_3bfkj")
 pattern_holder = NodePath("../PatternHolder")
 sizeDropdown = NodePath("Navigation/HBoxContainer/PatternSize Selector/HBoxContainer/OptionButton")
 indexDropdown = NodePath("Navigation/HBoxContainer/PatternIndex Selector/HBoxContainer/OptionButton")
+save_pattern_popup = NodePath("Edition/SavePattern Popup")
 
 [node name="Navigation" type="VBoxContainer" parent="Pattern Editor"]
 offset_left = 20.0
@@ -387,7 +394,7 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -278.0
-offset_top = -241.0
+offset_top = -270.0
 offset_right = -20.0
 offset_bottom = -20.0
 grow_horizontal = 0
@@ -400,14 +407,42 @@ text = "Edition"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Pattern Editor/Edition"]
+[node name="HSeparator" type="HSeparator" parent="Pattern Editor/Edition"]
+layout_mode = 2
+theme_override_constants/separation = 5
+theme_override_styles/separator = SubResource("StyleBoxEmpty_yjc64")
+
+[node name="SavePattern Popup" type="HBoxContainer" parent="Pattern Editor/Edition"]
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Pattern Editor/Edition/SavePattern Popup"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Pattern differs from Json Data"
+label_settings = SubResource("LabelSettings_1ilts")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Pattern Editor/Edition/SavePattern Popup"]
+layout_mode = 2
+
+[node name="Save" type="Button" parent="Pattern Editor/Edition/SavePattern Popup/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Save"
+
+[node name="Discard" type="Button" parent="Pattern Editor/Edition/SavePattern Popup/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Discard"
+
+[node name="EditButtons" type="HBoxContainer" parent="Pattern Editor/Edition"]
 custom_minimum_size = Vector2(180, 140)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 10
 theme_override_constants/separation = 10
 
-[node name="Rotate CCW" type="Button" parent="Pattern Editor/Edition/HBoxContainer" node_paths=PackedStringArray("pattern_holder")]
+[node name="Rotate CCW" type="Button" parent="Pattern Editor/Edition/EditButtons" node_paths=PackedStringArray("pattern_holder")]
 custom_minimum_size = Vector2(45, 45)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -419,13 +454,13 @@ script = ExtResource("27_6vjcn")
 pattern_holder = NodePath("../../../../PatternHolder")
 direction = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Pattern Editor/Edition/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Pattern Editor/Edition/EditButtons"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 theme_override_constants/separation = 15
 
-[node name="Translate -R" type="Button" parent="Pattern Editor/Edition/HBoxContainer/VBoxContainer" node_paths=PackedStringArray("pattern_holder")]
+[node name="Translate -R" type="Button" parent="Pattern Editor/Edition/EditButtons/VBoxContainer" node_paths=PackedStringArray("pattern_holder")]
 layout_mode = 2
 icon = SubResource("AtlasTexture_1ilts")
 icon_alignment = 1
@@ -433,7 +468,7 @@ script = ExtResource("28_egmoo")
 pattern_holder = NodePath("../../../../../PatternHolder")
 translation = Vector3i(-1, 0, 1)
 
-[node name="Translate -S" type="Button" parent="Pattern Editor/Edition/HBoxContainer/VBoxContainer" node_paths=PackedStringArray("pattern_holder")]
+[node name="Translate -S" type="Button" parent="Pattern Editor/Edition/EditButtons/VBoxContainer" node_paths=PackedStringArray("pattern_holder")]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 icon = SubResource("AtlasTexture_i71pd")
@@ -441,13 +476,13 @@ script = ExtResource("28_egmoo")
 pattern_holder = NodePath("../../../../../PatternHolder")
 translation = Vector3i(-1, 1, 0)
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="Pattern Editor/Edition/HBoxContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="Pattern Editor/Edition/EditButtons"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 theme_override_constants/separation = 15
 
-[node name="Translate -Q" type="Button" parent="Pattern Editor/Edition/HBoxContainer/VBoxContainer2" node_paths=PackedStringArray("pattern_holder")]
+[node name="Translate -Q" type="Button" parent="Pattern Editor/Edition/EditButtons/VBoxContainer2" node_paths=PackedStringArray("pattern_holder")]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 icon = SubResource("AtlasTexture_k24f1")
@@ -455,7 +490,7 @@ script = ExtResource("28_egmoo")
 pattern_holder = NodePath("../../../../../PatternHolder")
 translation = Vector3i(0, -1, 1)
 
-[node name="Center" type="Button" parent="Pattern Editor/Edition/HBoxContainer/VBoxContainer2" node_paths=PackedStringArray("pattern_holder")]
+[node name="Center" type="Button" parent="Pattern Editor/Edition/EditButtons/VBoxContainer2" node_paths=PackedStringArray("pattern_holder")]
 custom_minimum_size = Vector2(30, 38)
 layout_mode = 2
 theme_override_font_sizes/font_size = 9
@@ -463,7 +498,7 @@ icon = SubResource("AtlasTexture_yjc64")
 script = ExtResource("29_1ilts")
 pattern_holder = NodePath("../../../../../PatternHolder")
 
-[node name="Translate +Q" type="Button" parent="Pattern Editor/Edition/HBoxContainer/VBoxContainer2" node_paths=PackedStringArray("pattern_holder")]
+[node name="Translate +Q" type="Button" parent="Pattern Editor/Edition/EditButtons/VBoxContainer2" node_paths=PackedStringArray("pattern_holder")]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 icon = SubResource("AtlasTexture_a8y3k")
@@ -471,13 +506,13 @@ script = ExtResource("28_egmoo")
 pattern_holder = NodePath("../../../../../PatternHolder")
 translation = Vector3i(0, 1, -1)
 
-[node name="VBoxContainer3" type="VBoxContainer" parent="Pattern Editor/Edition/HBoxContainer"]
+[node name="VBoxContainer3" type="VBoxContainer" parent="Pattern Editor/Edition/EditButtons"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 theme_override_constants/separation = 15
 
-[node name="Translate +S" type="Button" parent="Pattern Editor/Edition/HBoxContainer/VBoxContainer3" node_paths=PackedStringArray("pattern_holder")]
+[node name="Translate +S" type="Button" parent="Pattern Editor/Edition/EditButtons/VBoxContainer3" node_paths=PackedStringArray("pattern_holder")]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 icon = SubResource("AtlasTexture_qic1e")
@@ -485,7 +520,7 @@ script = ExtResource("28_egmoo")
 pattern_holder = NodePath("../../../../../PatternHolder")
 translation = Vector3i(1, -1, 0)
 
-[node name="Translate +R" type="Button" parent="Pattern Editor/Edition/HBoxContainer/VBoxContainer3" node_paths=PackedStringArray("pattern_holder")]
+[node name="Translate +R" type="Button" parent="Pattern Editor/Edition/EditButtons/VBoxContainer3" node_paths=PackedStringArray("pattern_holder")]
 custom_minimum_size = Vector2(30, 30)
 layout_mode = 2
 icon = SubResource("AtlasTexture_akeui")
@@ -493,7 +528,7 @@ script = ExtResource("28_egmoo")
 pattern_holder = NodePath("../../../../../PatternHolder")
 translation = Vector3i(1, 0, -1)
 
-[node name="Rotate CW" type="Button" parent="Pattern Editor/Edition/HBoxContainer" node_paths=PackedStringArray("pattern_holder")]
+[node name="Rotate CW" type="Button" parent="Pattern Editor/Edition/EditButtons" node_paths=PackedStringArray("pattern_holder")]
 custom_minimum_size = Vector2(45, 45)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -514,3 +549,13 @@ pattern_holder = NodePath("../../../../PatternHolder")
 [connection signal="value_changed" from="Pattern Editor/Generation/HBoxContainer/VBoxContainer/HBoxContainer/HSlider" to="Pattern Editor/Generation/HBoxContainer/Generate Button" method="_set_generation_size"]
 [connection signal="GenerationComplete" from="Pattern Editor/Generation/HBoxContainer/Generate Button" to="Pattern Editor" method="UpdateDimensions"]
 [connection signal="button_down" from="Pattern Editor/Generation/HBoxContainer/Generate Button" to="Pattern Editor/Generation/HBoxContainer/Generate Button" method="StartGeneration"]
+[connection signal="button_down" from="Pattern Editor/Edition/SavePattern Popup/VBoxContainer/Discard" to="Pattern Editor" method="_on_pattern_discard"]
+[connection signal="pressed" from="Pattern Editor/Edition/EditButtons/Rotate CCW" to="Pattern Editor" method="_on_pattern_edit"]
+[connection signal="pressed" from="Pattern Editor/Edition/EditButtons/VBoxContainer/Translate -R" to="Pattern Editor" method="_on_pattern_edit"]
+[connection signal="pressed" from="Pattern Editor/Edition/EditButtons/VBoxContainer/Translate -S" to="Pattern Editor" method="_on_pattern_edit"]
+[connection signal="pressed" from="Pattern Editor/Edition/EditButtons/VBoxContainer2/Translate -Q" to="Pattern Editor" method="_on_pattern_edit"]
+[connection signal="pressed" from="Pattern Editor/Edition/EditButtons/VBoxContainer2/Center" to="Pattern Editor" method="_on_pattern_edit"]
+[connection signal="pressed" from="Pattern Editor/Edition/EditButtons/VBoxContainer2/Translate +Q" to="Pattern Editor" method="_on_pattern_edit"]
+[connection signal="pressed" from="Pattern Editor/Edition/EditButtons/VBoxContainer3/Translate +S" to="Pattern Editor" method="_on_pattern_edit"]
+[connection signal="pressed" from="Pattern Editor/Edition/EditButtons/VBoxContainer3/Translate +R" to="Pattern Editor" method="_on_pattern_edit"]
+[connection signal="pressed" from="Pattern Editor/Edition/EditButtons/Rotate CW" to="Pattern Editor" method="_on_pattern_edit"]

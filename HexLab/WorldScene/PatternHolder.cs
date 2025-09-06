@@ -7,24 +7,22 @@ public partial class PatternHolder : TilesManager
 	public List<Hex> currentPattern = new List<Hex>();
 	public void RotatePattern(Hex.RotateDirection direction)
 	{
-		currentPattern = PatternUtility.Rotate(currentPattern, direction);
-		DisplayCurrentPattern();
+		SetDisplayedPattern(PatternUtility.Rotate(currentPattern, direction));
 	}
 
 	public void TranslatePattern(Hex translation)
 	{
-		currentPattern = PatternUtility.Translate(currentPattern, translation);
-		DisplayCurrentPattern();
+		SetDisplayedPattern(PatternUtility.Translate(currentPattern, translation));
 	}
 
 	public void CenterPattern()
 	{
-		currentPattern = PatternUtility.Center(currentPattern);
-		DisplayCurrentPattern();
+		SetDisplayedPattern(PatternUtility.Center(currentPattern));
 	}
 
-	public void DisplayCurrentPattern()
+	public void SetDisplayedPattern(List<Hex> pattern)
 	{
+		currentPattern = pattern;
 		ClearTiles();
 		AddTileMultiple(currentPattern);
 	}

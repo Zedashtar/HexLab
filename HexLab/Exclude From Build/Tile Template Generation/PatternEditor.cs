@@ -10,6 +10,7 @@ public partial class PatternEditor : CanvasLayer
     [Export] PatternHolder pattern_holder;
     [Export] OptionButton sizeDropdown;
     [Export] OptionButton indexDropdown;
+    [Export] Control save_pattern_popup;
 
     public int selectedPatternSize = 1;
     int PatternSizeDimension;
@@ -94,8 +95,7 @@ public partial class PatternEditor : CanvasLayer
 
     void _display_selected_pattern()
     {
-        pattern_holder.currentPattern = savedPatterns.Data[selectedPatternSize][selectedPatternIndex].ToList();
-        pattern_holder.DisplayCurrentPattern();
+        pattern_holder.SetDisplayedPattern(savedPatterns.Data[selectedPatternSize][selectedPatternIndex].ToList());
     }
 
 
@@ -129,6 +129,17 @@ public partial class PatternEditor : CanvasLayer
     void _on_next_index_button_down()
     {
         NavigatePatternIndex(1);
+    }
+
+    void _on_pattern_edit()
+    {
+        save_pattern_popup.Visible = !pattern_holder.currentPattern.All(h => savedPatterns.Data[selectedPatternSize][selectedPatternIndex].Contains(h));
+    }
+
+    void _on_pattern_discard()
+    {
+        _display_selected_pattern();
+        save_pattern_popup.Visible = false;
     }
     
 
