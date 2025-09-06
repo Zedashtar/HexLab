@@ -11,7 +11,6 @@ public partial class PatternDataGeneration : Node
 
     [Export] int max_generation_size = 3;
     [Export] PatternEditor pattern_editor;
-    [Export] Node3D marker;
     Layout layout = new Layout(Layout.flat, new Vector2(0.5f, 0.5f), Vector3.Zero);
 
     PatternData autoload_data;
@@ -190,14 +189,6 @@ public partial class PatternDataGeneration : Node
             worldspace_positions.Add(worldspace_position);
         }
 
-        //Calculate Hex Center
-        Hex center_hex = new Hex(0, 0, 0);
-        int max_size = 0;
-        foreach (Hex h in _pattern)
-        {
-            max_size = new[] { h.q, h.r, h.s, max_size }.Max();
-        }
-
         //Calculate Barycenter
         Vector3 barycenter = Vector3.Zero;
         foreach (var pos in worldspace_positions)
@@ -205,8 +196,7 @@ public partial class PatternDataGeneration : Node
             barycenter += pos;
         }
         barycenter /= worldspace_positions.Count;
-        marker.Position = barycenter + Vector3.Up * 0.1f;
-        GD.Print("Barycenter in worldspace is at: " + barycenter.ToString());
+
         //Get Closest Hex to Barycenter
         Hex bary_hex = layout.WorldspaceToGrid(barycenter);
 
@@ -384,11 +374,6 @@ public partial class PatternDataGeneration : Node
         max_generation_size = (int)_size;
     }
 
-        void _on_barycenter_button_down()
-    {
-        Hex bary = CalculateBarycenter(autoload_data.Data[pattern_editor.selectedPatternSize][pattern_editor.selectedPatternIndex].ToList());
-        GD.Print("Barycenter of current pattern is at: " + bary.ToString());
-    }
     
     #endregion
 

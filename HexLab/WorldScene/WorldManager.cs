@@ -1,46 +1,13 @@
 using Godot;
-using System;
-using System.Linq;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Runtime.CompilerServices;
 using HexUtilities;
-using Godot.Collections;
 
-public partial class WorldManager : Node3D
+
+public partial class WorldManager : TilesManager
 {
-
-	public WorldResource world;
-	private HexGrid grid;
 
 	public List<Hex> primed_sites = new List<Hex>();
 	[Export] private PrimedOverlay primed_overlay;
-	private Node3D tile_container;
-
-
-	[ExportGroup("Testing")]
-	[Export] private PackedScene test_tile;
-
-
-
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-		grid = (HexGrid)GetNode("%HexGrid");
-		tile_container = (Node3D)GetNode("TileContainer");
-		//if World Loader passes a World, Load World Here
-		//Else
-		world = new WorldResource();
-		//Init_Test();
-		//DebugDisplayContent();
-	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
-
-
 
 
 	private void Init_Test()
@@ -54,53 +21,23 @@ public partial class WorldManager : Node3D
 
 	}
 
-	private void DebugDisplayContent()
-	{
-		if (world.tiles.Count == 0) return;
-		foreach (Vector3 key in world.tiles.Keys)
-		{
-			Debug.WriteLine(key.ToString() + " : " + world.tiles[key]);
-		}
-	}
 
-	private void _base_add_tile(Hex h)
-	{
-		Tile _tile = (Tile)test_tile.Instantiate();
-		tile_container.AddChild(_tile);
-		_tile.Position = grid.layout.GridToWorldspace(h);
-		world.tiles.Add(h.ToVector3(), _tile.type.ToString());
-	}
 
-	public void AddTileSingle(Hex h)
+	public override void AddTileSingle(Hex h)
 	{
-		if (!world.tiles.ContainsKey(h.ToVector3()))
-		{
-			_base_add_tile(h);
-			UpdatePrimedSites();
-		}
-	}
-
-	public void AddTileMultiple(List<Hex> hexes)
-	{
-		foreach (Hex h in hexes)
-		{
-			if (!world.tiles.ContainsKey(h.ToVector3()))
-			{
-				_base_add_tile(h);
-			}
-		}
-
+		base.AddTileSingle(h);
 		UpdatePrimedSites();
 	}
 
-	public void ClearTiles()
+	public override void AddTileMultiple(List<Hex> hexes)
 	{
-		world.tiles.Clear();
-		foreach (Node3D n in tile_container.GetChildren())
-		{
-			n.QueueFree();
-		}
+		base.AddTileMultiple(hexes);
+		UpdatePrimedSites();
+	}
 
+	public override void ClearTiles()
+	{
+		base.ClearTiles();
 		UpdatePrimedSites();
 	}
 
@@ -110,14 +47,14 @@ public partial class WorldManager : Node3D
 	{
 		List<Hex> _sites = new List<Hex>();
 
-		foreach (Vector3I v in world.tiles.Keys)
+		foreach (Vector3I v in tilemap.tiles.Keys)
 		{
 			Hex h = new Hex(v);
 			Hex[] _adjacents = h.Adjacents();
 
 			foreach (Hex j in _adjacents)
 			{
-				if (!world.tiles.ContainsKey(j.ToVector3()) && !_sites.Contains(j)) _sites.Add(j);
+				if (!tilemap.tiles.ContainsKey(j.ToVector3()) && !_sites.Contains(j)) _sites.Add(j);
 			}
 		}
 
