@@ -39,13 +39,11 @@ public partial class PatternDataGeneration : Node
     public override void _Ready()
     {
         autoload_data = GetNode<PatternData>("/root/GameData/Patterns");
-        if (autoload_data == null){ GD.Print("Failed to get PatternData autoload"); return; }
+        if (autoload_data == null) { GD.Print("Failed to get PatternData autoload"); return; }
     }
 
     public void SavePatternsToFile()
     {
-        // if (!Engine.IsEditorHint()) { return; } // Ensure this runs only in the editor and is not modifiable by player
-
         using var json = FileAccess.Open(path, FileAccess.ModeFlags.WriteRead);
 
         if (Data == null)
@@ -121,14 +119,14 @@ public partial class PatternDataGeneration : Node
         GD.Print("-------------------");
 
         List<Hex[][]> new_data = Data.ToList();
-        
+
         Data[_n + 1] = output.ToArray();
     }
 
-#region Helper Functions
+    #region Helper Functions
     List<Hex> N_AdjacencyList(Hex[] _pattern)
     {
-        
+
         List<Hex> pattern_adjacents = new List<Hex>();
 
         foreach (Hex hex in _pattern)
@@ -202,7 +200,7 @@ public partial class PatternDataGeneration : Node
         Hex bary_hex = layout.WorldspaceToGrid(barycenter);
 
         return bary_hex;
-        
+
     }
 
     List<Hex[]> GenerationCleanup(List<Hex[]> _pattern_list)
@@ -223,9 +221,9 @@ public partial class PatternDataGeneration : Node
             if (_patterns.Slice(0, i) == null) { break; }
             if (!HasDuplicate(_patterns[i], _patterns.Slice(0, i))) { unique_patterns.Add(_patterns[i]); }
         }
-        
+
         unique_patterns.Reverse();
-        GD.Print("Removed "+ (_patterns.Count - unique_patterns.Count) + " duplicates.");
+        GD.Print("Removed " + (_patterns.Count - unique_patterns.Count) + " duplicates.");
         return unique_patterns;
     }
 
@@ -237,11 +235,11 @@ public partial class PatternDataGeneration : Node
             if (_patterns.Slice(0, i) == null) { break; }
             if (!HasIBM(_patterns[i], _patterns.Slice(0, i))) { unique_patterns.Add(_patterns[i]); }
         }
-        
+
         unique_patterns.Reverse();
-        
-        
-        GD.Print("Removed "+ (_patterns.Count - unique_patterns.Count) + " IBM.");
+
+
+        GD.Print("Removed " + (_patterns.Count - unique_patterns.Count) + " IBM.");
         return unique_patterns;
     }
 
@@ -253,10 +251,10 @@ public partial class PatternDataGeneration : Node
             if (_patterns.Slice(0, i) == null) { break; }
             if (!HasIBR(_patterns[i], _patterns.Slice(0, i))) { unique_patterns.Add(_patterns[i]); }
         }
-        
+
         unique_patterns.Reverse();
-        
-        GD.Print("Removed "+ (_patterns.Count - unique_patterns.Count) + " IBR.");
+
+        GD.Print("Removed " + (_patterns.Count - unique_patterns.Count) + " IBR.");
         return unique_patterns;
     }
 
@@ -286,7 +284,7 @@ public partial class PatternDataGeneration : Node
     {
 
         List<Hex[]> target_rotations = new List<Hex[]>();
-        
+
         // Generate all 5 rotations of the target pattern
         for (int i = 1; i < 6; i++)
         {
@@ -308,10 +306,19 @@ public partial class PatternDataGeneration : Node
             if (_list_to_check.Any(p => p.Length == rotated_pattern.Length && p.All(h => rotated_pattern.Contains(h))))
             { return true; }
         }
-        
+
         return false;
     }
 
+    #endregion
+
+    #region Signal Handlers
+
+    void _set_generation_size(float _size)
+    {
+        max_generation_size = (int)_size;
+    }
+    
     #endregion
 
 

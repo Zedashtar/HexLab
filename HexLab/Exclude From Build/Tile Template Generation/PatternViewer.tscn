@@ -323,5 +323,6 @@ max_generation_size = 4
 [connection signal="item_selected" from="Pattern Editor/Navigation/HBoxContainer/PatternIndex Selector/HBoxContainer/OptionButton" to="Pattern Editor" method="_on_pattern_index_item_selected"]
 [connection signal="button_down" from="Pattern Editor/Navigation/HBoxContainer/PatternIndex Selector/HBoxContainer/Next" to="Pattern Editor" method="_on_next_index_button_down"]
 [connection signal="value_changed" from="Pattern Editor/Generation/HBoxContainer/VBoxContainer/HBoxContainer/HSlider" to="Pattern Editor/Generation/HBoxContainer/VBoxContainer/HBoxContainer/Label" method="SetText"]
+[connection signal="value_changed" from="Pattern Editor/Generation/HBoxContainer/VBoxContainer/HBoxContainer/HSlider" to="Pattern Editor/Generation/HBoxContainer/Generate Button" method="_set_generation_size"]
 [connection signal="GenerationComplete" from="Pattern Editor/Generation/HBoxContainer/Generate Button" to="Pattern Editor" method="UpdateDimensions"]
 [connection signal="button_down" from="Pattern Editor/Generation/HBoxContainer/Generate Button" to="Pattern Editor/Generation/HBoxContainer/Generate Button" method="StartGeneration"]

@@ -70,7 +70,36 @@ public partial class PatternEditor : CanvasLayer
 
     }
 
+    public void NavigatePatternSize(int step)
+    {
+        int newIndex = (sizeDropdown.Selected + step) % PatternSizeDimension;
+        GD.Print("New Index: " + newIndex);
+        if (newIndex < 0) { newIndex = PatternSizeDimension + newIndex; } // wrap around to end of list if going negative
+        sizeDropdown.Select(newIndex);
+        selectedPatternSize = sizeDropdown.Selected + 1; // +1 because pattern sizes start at 1 tile, not 0
+        UpdateIndexDropdown();
 
+    }
+
+    public void NavigatePatternIndex(int step)
+    {
+        int newIndex = (indexDropdown.Selected + step) % PatternIndexDimension;
+        if (newIndex < 0) { newIndex = PatternIndexDimension + newIndex; } // wrap around to end of list if going negative
+        indexDropdown.Select(newIndex);
+        selectedPatternIndex = newIndex;
+        _display_selected_pattern();
+
+    }
+
+        void _display_selected_pattern()
+    {
+        worldManager.ClearTiles();
+        worldManager.AddTileMultiple(savedPatterns.Data[selectedPatternSize][selectedPatternIndex].ToList());
+    }
+
+
+
+    #region Signals Handlers
     void _on_pattern_size_item_selected(int index)
     {
         selectedPatternSize = index + 1; // +1 because pattern sizes start at 1 tile, not 0
@@ -86,17 +115,6 @@ public partial class PatternEditor : CanvasLayer
         NavigatePatternSize(1);
     }
 
-    public void NavigatePatternSize(int step)
-    {
-        int newIndex = (sizeDropdown.Selected + step) % PatternSizeDimension;
-        GD.Print("New Index: " + newIndex);
-        if (newIndex < 0) { newIndex = PatternSizeDimension + newIndex; } // wrap around to end of list if going negative
-        sizeDropdown.Select(newIndex);
-        selectedPatternSize = sizeDropdown.Selected + 1; // +1 because pattern sizes start at 1 tile, not 0
-        UpdateIndexDropdown();
-
-    }
-
     void _on_pattern_index_item_selected(int index)
     {
         selectedPatternIndex = index;
@@ -109,20 +127,7 @@ public partial class PatternEditor : CanvasLayer
     {
         NavigatePatternIndex(1);
     }
-    public void NavigatePatternIndex(int step)
-    {
-        int newIndex = (indexDropdown.Selected + step) % PatternIndexDimension;
-        if (newIndex < 0) { newIndex = PatternIndexDimension + newIndex; } // wrap around to end of list if going negative
-        indexDropdown.Select(newIndex);
-        selectedPatternIndex = newIndex;
-        _display_selected_pattern();
 
-    }
-
-    void _display_selected_pattern()
-    {
-        worldManager.ClearTiles();
-        worldManager.AddTileMultiple(savedPatterns.Data[selectedPatternSize][selectedPatternIndex].ToList());
-    }
+    #endregion
 
 }
