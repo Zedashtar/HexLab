@@ -40,6 +40,14 @@ namespace HexUtilities
 			if (q + r + s != 0) throw new ArgumentException("q + r + s must be 0");
 		}
 
+		public Hex(Vector3I v)
+		{
+			q = v.X;
+			r = v.Y;
+			s = v.Z;
+			if (q + r + s != 0) throw new ArgumentException("q + r + s must be 0");
+		}
+
 		public static Hex operator +(Hex a, Hex b)
 		{
 			return new Hex(a.q + b.q, a.r + b.r, a.s + b.s);
@@ -274,7 +282,7 @@ namespace HexUtilities
 		static public List<Hex> Rotate(List<Hex> pattern, Hex.RotateDirection direction)
 		{
 			List<Hex> results = new List<Hex>();
-			results = pattern.Select(h => h.Rotate(Hex.RotateDirection.Clockwise)).ToList();
+			results = pattern.Select(h => h.Rotate(direction)).ToList();
 			return results;
 		}
 
@@ -285,7 +293,38 @@ namespace HexUtilities
 			return results;
 		}
 
+		static public List<Hex> Center(List<Hex> pattern)
+		{
+			Hex barycenter = CalculateBarycenter(pattern);
+			List<Hex> results = pattern.Select(h => h.Subtract(barycenter)).ToList();
+			return results;
+		}
 
+    	static public Hex CalculateBarycenter(List<Hex> _pattern)
+		{
+			Layout layout = new Layout(Layout.flat, new Vector2(0.5f, 0.5f), Vector3.Zero);
+			// Convert Hex to worldspace positions
+			List<Vector3> worldspace_positions = new List<Vector3>();
+			foreach (Hex h in _pattern)
+			{
+				Vector3 worldspace_position = layout.GridToWorldspace(h);
+				worldspace_positions.Add(worldspace_position);
+			}
+
+			//Calculate Barycenter
+			Vector3 barycenter = Vector3.Zero;
+			foreach (var pos in worldspace_positions)
+			{
+				barycenter += pos;
+			}
+			barycenter /= worldspace_positions.Count;
+
+			//Get Closest Hex to Barycenter
+			Hex bary_hex = layout.WorldspaceToGrid(barycenter);
+
+			return bary_hex;
+
+		}
 
 
 		static public List<Hex> GenerateHexRing(int radius)

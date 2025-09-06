@@ -6,8 +6,8 @@ using System.Linq;
 public partial class PatternEditor : CanvasLayer
 {
 
-    PatternData savedPatterns;
-    [Export] WorldManager worldManager;
+    public PatternData savedPatterns;
+    [Export] PatternHolder pattern_holder;
     [Export] OptionButton sizeDropdown;
     [Export] OptionButton indexDropdown;
 
@@ -94,8 +94,8 @@ public partial class PatternEditor : CanvasLayer
 
     void _display_selected_pattern()
     {
-        worldManager.ClearTiles();
-        worldManager.AddTileMultiple(savedPatterns.Data[selectedPatternSize][selectedPatternIndex].ToList());
+        pattern_holder.currentPattern = savedPatterns.Data[selectedPatternSize][selectedPatternIndex].ToList();
+        pattern_holder.DisplayCurrentPattern();
     }
 
 

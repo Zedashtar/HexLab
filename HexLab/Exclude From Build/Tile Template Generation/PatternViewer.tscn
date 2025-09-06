@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://mn78em5ucy56"]
+[gd_scene load_steps=55 format=3 uid="uid://mn78em5ucy56"]
 
 [ext_resource type="Script" uid="uid://bb1tw0dseqnn" path="res://WorldScene/world_scene_input.gd" id="1_8xs4e"]
 [ext_resource type="Resource" uid="uid://daamoqjc0qfj" path="res://Input/World_InputContext.tres" id="2_oj6hg"]
@@ -20,11 +20,15 @@
 [ext_resource type="Resource" uid="uid://f65pm45osika" path="res://Input/camera_zoom.tres" id="18_cu4ww"]
 [ext_resource type="Script" uid="uid://q1uspa3128k6" path="res://Camera/CameraPath.gd" id="19_rrr1q"]
 [ext_resource type="Script" uid="uid://bubgi7afdes3w" path="res://Camera/MainCamera.gd" id="20_7o0w7"]
-[ext_resource type="Script" uid="uid://fnsdr3pmfyxa" path="res://WorldScene/WorldManager.cs" id="21_2hhpi"]
+[ext_resource type="Script" uid="uid://bi4k0kng0wi70" path="res://WorldScene/PatternHolder.cs" id="21_3bfkj"]
 [ext_resource type="PackedScene" uid="uid://diyxsy4khqxlm" path="res://Tiles/Prefabs/tile_placeholder.tscn" id="22_h11g8"]
 [ext_resource type="Script" uid="uid://bdtwrnrs6dceg" path="res://Exclude From Build/Tile Template Generation/PatternEditor.cs" id="23_3bfkj"]
 [ext_resource type="Script" uid="uid://ba3ak6fv8dwlm" path="res://Exclude From Build/Tile Template Generation/PatternDataGeneration.cs" id="23_mc0ck"]
 [ext_resource type="Script" uid="uid://cmsdxh3x3x7vp" path="res://UI/slider_value_label.gd" id="24_7vibs"]
+[ext_resource type="Texture2D" uid="uid://bapphmxyvp226" path="res://Exclude From Build/Editor Icons/SystemIcons.png" id="26_pnhsc"]
+[ext_resource type="Script" uid="uid://c5pidbqy0q8hi" path="res://Exclude From Build/Tile Template Generation/EditorPatternRotateButton.cs" id="27_6vjcn"]
+[ext_resource type="Script" uid="uid://00kld6gyx6jy" path="res://Exclude From Build/Tile Template Generation/EditorPatternTranslateButton.cs" id="28_egmoo"]
+[ext_resource type="Script" uid="uid://q1kv6lywbf30" path="res://Exclude From Build/Tile Template Generation/EditorPatternCenterButton.cs" id="29_1ilts"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_deult"]
 render_priority = 0
@@ -82,6 +86,67 @@ corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_6vjcn"]
+load_path = "res://.godot/imported/SystemIcons.png-5850a0ddbf58714aedbacc7446347ab5.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_egmoo"]
+atlas = SubResource("CompressedTexture2D_6vjcn")
+region = Rect2(0, 30, 30, 30)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_egmoo"]
+load_path = "res://.godot/imported/SystemIcons.png-5850a0ddbf58714aedbacc7446347ab5.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ilts"]
+atlas = SubResource("CompressedTexture2D_egmoo")
+region = Rect2(30, 0, 30, 30)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_yjc64"]
+load_path = "res://.godot/imported/SystemIcons.png-5850a0ddbf58714aedbacc7446347ab5.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i71pd"]
+atlas = SubResource("CompressedTexture2D_yjc64")
+region = Rect2(31, 30, 30, 30)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_i055w"]
+load_path = "res://.godot/imported/SystemIcons.png-5850a0ddbf58714aedbacc7446347ab5.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k24f1"]
+atlas = SubResource("CompressedTexture2D_i055w")
+region = Rect2(90, 0, 30, 30)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yjc64"]
+atlas = ExtResource("26_pnhsc")
+region = Rect2(0, 60, 30, 30)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_oplq3"]
+load_path = "res://.godot/imported/SystemIcons.png-5850a0ddbf58714aedbacc7446347ab5.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a8y3k"]
+atlas = SubResource("CompressedTexture2D_oplq3")
+region = Rect2(90, 30, 30, 30)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ebaqs"]
+load_path = "res://.godot/imported/SystemIcons.png-5850a0ddbf58714aedbacc7446347ab5.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qic1e"]
+atlas = SubResource("CompressedTexture2D_ebaqs")
+region = Rect2(60, 0, 30, 30)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1foe3"]
+load_path = "res://.godot/imported/SystemIcons.png-5850a0ddbf58714aedbacc7446347ab5.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_akeui"]
+atlas = SubResource("CompressedTexture2D_1foe3")
+region = Rect2(60, 30, 30, 30)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_r5p4b"]
+load_path = "res://.godot/imported/SystemIcons.png-5850a0ddbf58714aedbacc7446347ab5.ctex"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cl2ws"]
+atlas = SubResource("CompressedTexture2D_r5p4b")
+region = Rect2(0, 0, 30, 30)
+margin = Rect2(1, 0, 0, 0)
 
 [node name="World" type="Node3D"]
 
@@ -150,13 +215,11 @@ fov = 20.3
 script = ExtResource("20_7o0w7")
 target = NodePath("../../..")
 
-[node name="WorldManager" type="Node3D" parent="." node_paths=PackedStringArray("primed_overlay")]
-unique_name_in_owner = true
-script = ExtResource("21_2hhpi")
-primed_overlay = NodePath("../Overlay/PrimedOverlay")
+[node name="PatternHolder" type="Node3D" parent="."]
+script = ExtResource("21_3bfkj")
 test_tile = ExtResource("22_h11g8")
 
-[node name="TileContainer" type="Node3D" parent="WorldManager"]
+[node name="TileContainer" type="Node3D" parent="PatternHolder"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.977966, -0.206163, 0.0328596, 0, 0.1574, 0.987535, -0.208765, -0.965775, 0.153932, 0, 6, 0)
@@ -173,9 +236,9 @@ grow_vertical = 0
 theme_override_colors/font_color = Color(0.907942, 0.907942, 0.907942, 1)
 theme_override_styles/normal = SubResource("StyleBoxFlat_k3jcv")
 
-[node name="Pattern Editor" type="CanvasLayer" parent="." node_paths=PackedStringArray("worldManager", "sizeDropdown", "indexDropdown")]
+[node name="Pattern Editor" type="CanvasLayer" parent="." node_paths=PackedStringArray("pattern_holder", "sizeDropdown", "indexDropdown")]
 script = ExtResource("23_3bfkj")
-worldManager = NodePath("../WorldManager")
+pattern_holder = NodePath("../PatternHolder")
 sizeDropdown = NodePath("Navigation/HBoxContainer/PatternSize Selector/HBoxContainer/OptionButton")
 indexDropdown = NodePath("Navigation/HBoxContainer/PatternIndex Selector/HBoxContainer/OptionButton")
 
@@ -316,6 +379,130 @@ text = "Generate"
 script = ExtResource("23_mc0ck")
 max_generation_size = 4
 pattern_editor = NodePath("../../..")
+
+[node name="Edition" type="VBoxContainer" parent="Pattern Editor"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -278.0
+offset_top = -241.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="Pattern Editor/Edition"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_3bfkj")
+text = "Edition"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Pattern Editor/Edition"]
+custom_minimum_size = Vector2(180, 140)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme_override_constants/separation = 10
+
+[node name="Rotate CCW" type="Button" parent="Pattern Editor/Edition/HBoxContainer" node_paths=PackedStringArray("pattern_holder")]
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+icon = SubResource("AtlasTexture_egmoo")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("27_6vjcn")
+pattern_holder = NodePath("../../../../PatternHolder")
+direction = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Pattern Editor/Edition/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_constants/separation = 15
+
+[node name="Translate -R" type="Button" parent="Pattern Editor/Edition/HBoxContainer/VBoxContainer" node_paths=PackedStringArray("pattern_holder")]
+layout_mode = 2
+icon = SubResource("AtlasTexture_1ilts")
+icon_alignment = 1
+script = ExtResource("28_egmoo")
+pattern_holder = NodePath("../../../../../PatternHolder")
+translation = Vector3i(-1, 0, 1)
+
+[node name="Translate -S" type="Button" parent="Pattern Editor/Edition/HBoxContainer/VBoxContainer" node_paths=PackedStringArray("pattern_holder")]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+icon = SubResource("AtlasTexture_i71pd")
+script = ExtResource("28_egmoo")
+pattern_holder = NodePath("../../../../../PatternHolder")
+translation = Vector3i(-1, 1, 0)
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Pattern Editor/Edition/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_constants/separation = 15
+
+[node name="Translate -Q" type="Button" parent="Pattern Editor/Edition/HBoxContainer/VBoxContainer2" node_paths=PackedStringArray("pattern_holder")]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+icon = SubResource("AtlasTexture_k24f1")
+script = ExtResource("28_egmoo")
+pattern_holder = NodePath("../../../../../PatternHolder")
+translation = Vector3i(0, -1, 1)
+
+[node name="Center" type="Button" parent="Pattern Editor/Edition/HBoxContainer/VBoxContainer2" node_paths=PackedStringArray("pattern_holder")]
+custom_minimum_size = Vector2(30, 38)
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+icon = SubResource("AtlasTexture_yjc64")
+script = ExtResource("29_1ilts")
+pattern_holder = NodePath("../../../../../PatternHolder")
+
+[node name="Translate +Q" type="Button" parent="Pattern Editor/Edition/HBoxContainer/VBoxContainer2" node_paths=PackedStringArray("pattern_holder")]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+icon = SubResource("AtlasTexture_a8y3k")
+script = ExtResource("28_egmoo")
+pattern_holder = NodePath("../../../../../PatternHolder")
+translation = Vector3i(0, 1, -1)
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="Pattern Editor/Edition/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_constants/separation = 15
+
+[node name="Translate +S" type="Button" parent="Pattern Editor/Edition/HBoxContainer/VBoxContainer3" node_paths=PackedStringArray("pattern_holder")]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+icon = SubResource("AtlasTexture_qic1e")
+script = ExtResource("28_egmoo")
+pattern_holder = NodePath("../../../../../PatternHolder")
+translation = Vector3i(1, -1, 0)
+
+[node name="Translate +R" type="Button" parent="Pattern Editor/Edition/HBoxContainer/VBoxContainer3" node_paths=PackedStringArray("pattern_holder")]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 2
+icon = SubResource("AtlasTexture_akeui")
+script = ExtResource("28_egmoo")
+pattern_holder = NodePath("../../../../../PatternHolder")
+translation = Vector3i(1, 0, -1)
+
+[node name="Rotate CW" type="Button" parent="Pattern Editor/Edition/HBoxContainer" node_paths=PackedStringArray("pattern_holder")]
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+icon = SubResource("AtlasTexture_cl2ws")
+icon_alignment = 1
+expand_icon = true
+script = ExtResource("27_6vjcn")
+pattern_holder = NodePath("../../../../PatternHolder")
 
 [connection signal="button_down" from="Pattern Editor/Navigation/HBoxContainer/PatternSize Selector/HBoxContainer/Previous" to="Pattern Editor" method="_on_previous_size_button_down"]
 [connection signal="item_selected" from="Pattern Editor/Navigation/HBoxContainer/PatternSize Selector/HBoxContainer/OptionButton" to="Pattern Editor" method="_on_pattern_size_item_selected"]

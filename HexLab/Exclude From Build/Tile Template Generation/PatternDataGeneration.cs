@@ -160,12 +160,8 @@ public partial class PatternDataGeneration : Node
             List<Hex> new_pattern = _pattern.ToList();
             new_pattern.Add(hex);
 
-
-
-            Hex bary_hex = CalculateBarycenter(new_pattern);
-
             // Center the pattern around the barycenter
-            List<Hex> centered_pattern = new_pattern.Select(h => h.Subtract(bary_hex)).ToList();
+            List<Hex> centered_pattern = PatternUtility.Center(new_pattern);
 
             n_plus_one_patterns.Add(centered_pattern.ToArray());
 
