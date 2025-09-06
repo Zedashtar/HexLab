@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 public partial class PatternEditor : CanvasLayer
@@ -91,7 +92,7 @@ public partial class PatternEditor : CanvasLayer
 
     }
 
-        void _display_selected_pattern()
+    void _display_selected_pattern()
     {
         worldManager.ClearTiles();
         worldManager.AddTileMultiple(savedPatterns.Data[selectedPatternSize][selectedPatternIndex].ToList());
@@ -104,6 +105,7 @@ public partial class PatternEditor : CanvasLayer
     {
         selectedPatternSize = index + 1; // +1 because pattern sizes start at 1 tile, not 0
         UpdateIndexDropdown();
+        _display_selected_pattern();
     }
 
     void _on_previous_size_button_down()
@@ -118,6 +120,7 @@ public partial class PatternEditor : CanvasLayer
     void _on_pattern_index_item_selected(int index)
     {
         selectedPatternIndex = index;
+        _display_selected_pattern();
     }
     void _on_previous_index_button_down()
     {
@@ -127,6 +130,7 @@ public partial class PatternEditor : CanvasLayer
     {
         NavigatePatternIndex(1);
     }
+    
 
     #endregion
 

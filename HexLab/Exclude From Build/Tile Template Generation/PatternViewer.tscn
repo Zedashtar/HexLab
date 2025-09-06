@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://mn78em5ucy56"]
+[gd_scene load_steps=36 format=3 uid="uid://mn78em5ucy56"]
 
 [ext_resource type="Script" uid="uid://bb1tw0dseqnn" path="res://WorldScene/world_scene_input.gd" id="1_8xs4e"]
 [ext_resource type="Resource" uid="uid://daamoqjc0qfj" path="res://Input/World_InputContext.tres" id="2_oj6hg"]
@@ -82,6 +82,14 @@ corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7vibs"]
+albedo_color = Color(0.281535, 0.498322, 0.892219, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_pnhsc"]
+material = SubResource("StandardMaterial3D_7vibs")
+radius = 0.05
+height = 0.1
 
 [node name="World" type="Node3D"]
 
@@ -309,12 +317,25 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("24_7vibs")
 
-[node name="Generate Button" type="Button" parent="Pattern Editor/Generation/HBoxContainer"]
+[node name="Generate Button" type="Button" parent="Pattern Editor/Generation/HBoxContainer" node_paths=PackedStringArray("pattern_editor", "marker")]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Generate"
 script = ExtResource("23_mc0ck")
 max_generation_size = 4
+pattern_editor = NodePath("../../..")
+marker = NodePath("../../../../marker")
+
+[node name="Button" type="Button" parent="Pattern Editor"]
+offset_left = 88.0
+offset_top = 130.0
+offset_right = 182.0
+offset_bottom = 161.0
+text = "Barycenter"
+
+[node name="marker" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+mesh = SubResource("SphereMesh_pnhsc")
 
 [connection signal="button_down" from="Pattern Editor/Navigation/HBoxContainer/PatternSize Selector/HBoxContainer/Previous" to="Pattern Editor" method="_on_previous_size_button_down"]
 [connection signal="item_selected" from="Pattern Editor/Navigation/HBoxContainer/PatternSize Selector/HBoxContainer/OptionButton" to="Pattern Editor" method="_on_pattern_size_item_selected"]
@@ -326,3 +347,4 @@ max_generation_size = 4
 [connection signal="value_changed" from="Pattern Editor/Generation/HBoxContainer/VBoxContainer/HBoxContainer/HSlider" to="Pattern Editor/Generation/HBoxContainer/Generate Button" method="_set_generation_size"]
 [connection signal="GenerationComplete" from="Pattern Editor/Generation/HBoxContainer/Generate Button" to="Pattern Editor" method="UpdateDimensions"]
 [connection signal="button_down" from="Pattern Editor/Generation/HBoxContainer/Generate Button" to="Pattern Editor/Generation/HBoxContainer/Generate Button" method="StartGeneration"]
+[connection signal="button_down" from="Pattern Editor/Button" to="Pattern Editor/Generation/HBoxContainer/Generate Button" method="_on_barycenter_button_down"]

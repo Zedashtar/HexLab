@@ -1,5 +1,7 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 
 //public partial class HexUtilities : RefCounted
@@ -53,11 +55,13 @@ namespace HexUtilities
 			return new Hex(a.q * k, a.r * k, a.s * k);
 		}
 
-		public static bool operator ==(Hex a, Hex b) {
+		public static bool operator ==(Hex a, Hex b)
+		{
 			return a.q == b.q && a.r == b.r && a.s == b.s;
 		}
 
-		public static bool operator !=(Hex a, Hex b) {
+		public static bool operator !=(Hex a, Hex b)
+		{
 			return !(a == b);
 		}
 
@@ -260,5 +264,66 @@ namespace HexUtilities
 
 
 	}
+	#endregion
+
+	#region Patterns
+
+	public static class PatternUtility
+	{
+
+		static public List<Hex> Rotate(List<Hex> pattern, Hex.RotateDirection direction)
+		{
+			List<Hex> results = new List<Hex>();
+			results = pattern.Select(h => h.Rotate(Hex.RotateDirection.Clockwise)).ToList();
+			return results;
+		}
+
+		static public List<Hex> Translate(List<Hex> pattern, Hex direction)
+		{
+			List<Hex> results = new List<Hex>();
+			results = pattern.Select(h => h.Add(direction)).ToList();
+			return results;
+		}
+
+
+
+
+		static public List<Hex> GenerateHexRing(int radius)
+		{
+			Hex center = new Hex(0, 0, 0);
+			List<Hex> results = new List<Hex>();
+			if (radius == 0)
+			{
+				results.Add(center);
+				return results;
+			}
+			Hex hex = center.Add(Hex.Direction(4).Scale(radius));
+			for (int i = 0; i < 6; i++)
+			{
+				for (int j = 0; j < radius; j++)
+				{
+					results.Add(hex);
+					hex = hex.Neighbor(i);
+				}
+			}
+			return results;
+		}
+
+		static public List<Hex> GenerateHexSpiral(int radius)
+		{
+			Hex center = new Hex(0, 0, 0);
+			List<Hex> results = new List<Hex>();
+			results.Add(center);
+			for (int k = 1; k <= radius; k++)
+			{
+				results.AddRange(GenerateHexRing(k));
+			}
+			return results;
+		}
+
+	}
+
+
+
 	#endregion
 }
