@@ -2,6 +2,8 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
+using HexUtilities;
 
 public partial class PatternEditor : CanvasLayer
 {
@@ -16,6 +18,7 @@ public partial class PatternEditor : CanvasLayer
     int PatternSizeDimension;
     public int selectedPatternIndex = 0;
     int PatternIndexDimension;
+    string path = "res://Autoload/GameData/patterns.json";
 
 
     public override void _Ready()
@@ -96,7 +99,30 @@ public partial class PatternEditor : CanvasLayer
     void _display_selected_pattern()
     {
         pattern_holder.SetDisplayedPattern(savedPatterns.Data[selectedPatternSize][selectedPatternIndex].ToList());
+        _on_pattern_edit(); // check if pattern matches saved data and update save popup accordingly
     }
+
+    bool IsDataMatch()
+    {
+        return pattern_holder.currentPattern.All(h => savedPatterns.Data[selectedPatternSize][selectedPatternIndex].Contains(h));
+    }
+
+    public void SavePatternsToFile(Hex[][][] Data)
+    {
+        using var json = FileAccess.Open(path, FileAccess.ModeFlags.WriteRead);
+
+        if (Data == null)
+        {
+            GD.PrintErr("No pattern data to save.");
+            return;
+        }
+
+        string pattern_data = JsonConvert.SerializeObject(Data, Formatting.Indented);
+        json.StoreString(pattern_data);
+        json.Close();
+        GD.Print("Patterns saved to file.");
+    }
+
 
 
 
@@ -133,12 +159,19 @@ public partial class PatternEditor : CanvasLayer
 
     void _on_pattern_edit()
     {
-        save_pattern_popup.Visible = !pattern_holder.currentPattern.All(h => savedPatterns.Data[selectedPatternSize][selectedPatternIndex].Contains(h));
+        save_pattern_popup.Visible = !IsDataMatch();
     }
 
     void _on_pattern_discard()
     {
         _display_selected_pattern();
+        save_pattern_popup.Visible = false;
+    }
+    
+    void _on_pattern_save()
+    {
+        savedPatterns.Data[selectedPatternSize][selectedPatternIndex] = pattern_holder.currentPattern.ToArray();
+        SavePatternsToFile(savedPatterns.Data);
         save_pattern_popup.Visible = false;
     }
     

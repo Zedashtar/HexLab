@@ -1,4 +1,4 @@
-[gd_scene load_steps=57 format=3 uid="uid://mn78em5ucy56"]
+[gd_scene load_steps=63 format=3 uid="uid://mn78em5ucy56"]
 
 [ext_resource type="Script" uid="uid://bb1tw0dseqnn" path="res://WorldScene/world_scene_input.gd" id="1_8xs4e"]
 [ext_resource type="Resource" uid="uid://daamoqjc0qfj" path="res://Input/World_InputContext.tres" id="2_oj6hg"]
@@ -29,6 +29,7 @@
 [ext_resource type="Script" uid="uid://c5pidbqy0q8hi" path="res://Exclude From Build/Tile Template Generation/EditorPatternRotateButton.cs" id="27_6vjcn"]
 [ext_resource type="Script" uid="uid://00kld6gyx6jy" path="res://Exclude From Build/Tile Template Generation/EditorPatternTranslateButton.cs" id="28_egmoo"]
 [ext_resource type="Script" uid="uid://q1kv6lywbf30" path="res://Exclude From Build/Tile Template Generation/EditorPatternCenterButton.cs" id="29_1ilts"]
+[ext_resource type="Script" uid="uid://dwsoe4l0i76dq" path="res://Exclude From Build/Tile Template Generation/PopupWindowYN.cs" id="30_yjc64"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_deult"]
 render_priority = 0
@@ -54,7 +55,7 @@ shader_parameter/Metallic = 1.0
 [sub_resource type="PlaneMesh" id="PlaneMesh_1lxk4"]
 size = Vector2(20, 20)
 
-[sub_resource type="Curve3D" id="Curve3D_7vibs"]
+[sub_resource type="Curve3D" id="Curve3D_1ilts"]
 _data = {
 "points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 5, 4, 0, 0, 0, 0, 0, 0, 0.125643, 5, 3.99803, 0, 0, 0, 0, 0, 0, 0.251162, 5, 3.99211, 0, 0, 0, 0, 0, 0, 0.376433, 5, 3.98225, 0, 0, 0, 0, 0, 0, 0.501333, 5, 3.96846, 0, 0, 0, 0, 0, 0, 0.625738, 5, 3.95075, 0, 0, 0, 0, 0, 0, 0.749525, 5, 3.92915, 0, 0, 0, 0, 0, 0, 0.872573, 5, 3.90367, 0, 0, 0, 0, 0, 0, 0.99476, 5, 3.87433, 0, 0, 0, 0, 0, 0, 1.11596, 5, 3.84117, 0, 0, 0, 0, 0, 0, 1.23607, 5, 3.80423, 0, 0, 0, 0, 0, 0, 1.35495, 5, 3.76352, 0, 0, 0, 0, 0, 0, 1.4725, 5, 3.71911, 0, 0, 0, 0, 0, 0, 1.58859, 5, 3.67102, 0, 0, 0, 0, 0, 0, 1.70312, 5, 3.61931, 0, 0, 0, 0, 0, 0, 1.81596, 5, 3.56403, 0, 0, 0, 0, 0, 0, 1.92701, 5, 3.50523, 0, 0, 0, 0, 0, 0, 2.03617, 5, 3.44297, 0, 0, 0, 0, 0, 0, 2.14331, 5, 3.37731, 0, 0, 0, 0, 0, 0, 2.24833, 5, 3.30832, 0, 0, 0, 0, 0, 0, 2.35114, 5, 3.23607, 0, 0, 0, 0, 0, 0, 2.45163, 5, 3.16062, 0, 0, 0, 0, 0, 0, 2.5497, 5, 3.08205, 0, 0, 0, 0, 0, 0, 2.64525, 5, 3.00044, 0, 0, 0, 0, 0, 0, 2.73819, 5, 2.91587, 0, 0, 0, 0, 0, 0, 2.82843, 5, 2.82843, 0, 0, 0, 0, 0, 0, 2.91587, 5, 2.73819, 0, 0, 0, 0, 0, 0, 3.00044, 5, 2.64525, 0, 0, 0, 0, 0, 0, 3.08205, 5, 2.5497, 0, 0, 0, 0, 0, 0, 3.16062, 5, 2.45163, 0, 0, 0, 0, 0, 0, 3.23607, 5, 2.35114, 0, 0, 0, 0, 0, 0, 3.30832, 5, 2.24833, 0, 0, 0, 0, 0, 0, 3.37731, 5, 2.14331, 0, 0, 0, 0, 0, 0, 3.44297, 5, 2.03617, 0, 0, 0, 0, 0, 0, 3.50523, 5, 1.92701, 0, 0, 0, 0, 0, 0, 3.56403, 5, 1.81596, 0, 0, 0, 0, 0, 0, 3.61931, 5, 1.70312, 0, 0, 0, 0, 0, 0, 3.67102, 5, 1.58859, 0, 0, 0, 0, 0, 0, 3.71911, 5, 1.4725, 0, 0, 0, 0, 0, 0, 3.76352, 5, 1.35495, 0, 0, 0, 0, 0, 0, 3.80423, 5, 1.23607, 0, 0, 0, 0, 0, 0, 3.84117, 5, 1.11596, 0, 0, 0, 0, 0, 0, 3.87433, 5, 0.99476, 0, 0, 0, 0, 0, 0, 3.90367, 5, 0.872573, 0, 0, 0, 0, 0, 0, 3.92915, 5, 0.749525, 0, 0, 0, 0, 0, 0, 3.95075, 5, 0.625738, 0, 0, 0, 0, 0, 0, 3.96846, 5, 0.501333, 0, 0, 0, 0, 0, 0, 3.98225, 5, 0.376433, 0, 0, 0, 0, 0, 0, 3.99211, 5, 0.251162, 0, 0, 0, 0, 0, 0, 3.99803, 5, 0.125643, 0, 0, 0, 0, 0, 0, 4, 5, -1.74846e-07, 0, 0, 0, 0, 0, 0, 3.99803, 5, -0.125643, 0, 0, 0, 0, 0, 0, 3.99211, 5, -0.251162, 0, 0, 0, 0, 0, 0, 3.98225, 5, -0.376433, 0, 0, 0, 0, 0, 0, 3.96846, 5, -0.501333, 0, 0, 0, 0, 0, 0, 3.95075, 5, -0.625738, 0, 0, 0, 0, 0, 0, 3.92915, 5, -0.749525, 0, 0, 0, 0, 0, 0, 3.90367, 5, -0.872573, 0, 0, 0, 0, 0, 0, 3.87433, 5, -0.99476, 0, 0, 0, 0, 0, 0, 3.84117, 5, -1.11596, 0, 0, 0, 0, 0, 0, 3.80423, 5, -1.23607, 0, 0, 0, 0, 0, 0, 3.76352, 5, -1.35495, 0, 0, 0, 0, 0, 0, 3.71911, 5, -1.4725, 0, 0, 0, 0, 0, 0, 3.67102, 5, -1.58859, 0, 0, 0, 0, 0, 0, 3.61931, 5, -1.70312, 0, 0, 0, 0, 0, 0, 3.56403, 5, -1.81596, 0, 0, 0, 0, 0, 0, 3.50523, 5, -1.92701, 0, 0, 0, 0, 0, 0, 3.44297, 5, -2.03617, 0, 0, 0, 0, 0, 0, 3.37731, 5, -2.14331, 0, 0, 0, 0, 0, 0, 3.30832, 5, -2.24833, 0, 0, 0, 0, 0, 0, 3.23607, 5, -2.35114, 0, 0, 0, 0, 0, 0, 3.16062, 5, -2.45163, 0, 0, 0, 0, 0, 0, 3.08205, 5, -2.5497, 0, 0, 0, 0, 0, 0, 3.00044, 5, -2.64525, 0, 0, 0, 0, 0, 0, 2.91587, 5, -2.73819, 0, 0, 0, 0, 0, 0, 2.82843, 5, -2.82843, 0, 0, 0, 0, 0, 0, 2.73819, 5, -2.91587, 0, 0, 0, 0, 0, 0, 2.64525, 5, -3.00044, 0, 0, 0, 0, 0, 0, 2.5497, 5, -3.08205, 0, 0, 0, 0, 0, 0, 2.45163, 5, -3.16062, 0, 0, 0, 0, 0, 0, 2.35114, 5, -3.23607, 0, 0, 0, 0, 0, 0, 2.24833, 5, -3.30832, 0, 0, 0, 0, 0, 0, 2.14331, 5, -3.37731, 0, 0, 0, 0, 0, 0, 2.03617, 5, -3.44297, 0, 0, 0, 0, 0, 0, 1.92702, 5, -3.50523, 0, 0, 0, 0, 0, 0, 1.81596, 5, -3.56403, 0, 0, 0, 0, 0, 0, 1.70312, 5, -3.61931, 0, 0, 0, 0, 0, 0, 1.58859, 5, -3.67102, 0, 0, 0, 0, 0, 0, 1.4725, 5, -3.71911, 0, 0, 0, 0, 0, 0, 1.35495, 5, -3.76352, 0, 0, 0, 0, 0, 0, 1.23607, 5, -3.80423, 0, 0, 0, 0, 0, 0, 1.11596, 5, -3.84117, 0, 0, 0, 0, 0, 0, 0.99476, 5, -3.87433, 0, 0, 0, 0, 0, 0, 0.872573, 5, -3.90367, 0, 0, 0, 0, 0, 0, 0.749525, 5, -3.92915, 0, 0, 0, 0, 0, 0, 0.625738, 5, -3.95075, 0, 0, 0, 0, 0, 0, 0.501333, 5, -3.96846, 0, 0, 0, 0, 0, 0, 0.376433, 5, -3.98225, 0, 0, 0, 0, 0, 0, 0.251162, 5, -3.99211, 0, 0, 0, 0, 0, 0, 0.125643, 5, -3.99803, 0, 0, 0, 0, 0, 0, -3.49691e-07, 5, -4, 0, 0, 0, 0, 0, 0, -0.125643, 5, -3.99803, 0, 0, 0, 0, 0, 0, -0.251163, 5, -3.99211, 0, 0, 0, 0, 0, 0, -0.376433, 5, -3.98225, 0, 0, 0, 0, 0, 0, -0.501333, 5, -3.96846, 0, 0, 0, 0, 0, 0, -0.625737, 5, -3.95075, 0, 0, 0, 0, 0, 0, -0.749525, 5, -3.92915, 0, 0, 0, 0, 0, 0, -0.872573, 5, -3.90367, 0, 0, 0, 0, 0, 0, -0.994759, 5, -3.87433, 0, 0, 0, 0, 0, 0, -1.11596, 5, -3.84117, 0, 0, 0, 0, 0, 0, -1.23607, 5, -3.80423, 0, 0, 0, 0, 0, 0, -1.35495, 5, -3.76352, 0, 0, 0, 0, 0, 0, -1.4725, 5, -3.71911, 0, 0, 0, 0, 0, 0, -1.58859, 5, -3.67102, 0, 0, 0, 0, 0, 0, -1.70312, 5, -3.61931, 0, 0, 0, 0, 0, 0, -1.81596, 5, -3.56403, 0, 0, 0, 0, 0, 0, -1.92701, 5, -3.50523, 0, 0, 0, 0, 0, 0, -2.03617, 5, -3.44297, 0, 0, 0, 0, 0, 0, -2.14331, 5, -3.37731, 0, 0, 0, 0, 0, 0, -2.24833, 5, -3.30832, 0, 0, 0, 0, 0, 0, -2.35114, 5, -3.23607, 0, 0, 0, 0, 0, 0, -2.45163, 5, -3.16062, 0, 0, 0, 0, 0, 0, -2.5497, 5, -3.08205, 0, 0, 0, 0, 0, 0, -2.64525, 5, -3.00044, 0, 0, 0, 0, 0, 0, -2.73819, 5, -2.91587, 0, 0, 0, 0, 0, 0, -2.82843, 5, -2.82843, 0, 0, 0, 0, 0, 0, -2.91587, 5, -2.73819, 0, 0, 0, 0, 0, 0, -3.00044, 5, -2.64525, 0, 0, 0, 0, 0, 0, -3.08205, 5, -2.5497, 0, 0, 0, 0, 0, 0, -3.16062, 5, -2.45163, 0, 0, 0, 0, 0, 0, -3.23607, 5, -2.35114, 0, 0, 0, 0, 0, 0, -3.30832, 5, -2.24833, 0, 0, 0, 0, 0, 0, -3.37731, 5, -2.14331, 0, 0, 0, 0, 0, 0, -3.44297, 5, -2.03617, 0, 0, 0, 0, 0, 0, -3.50523, 5, -1.92702, 0, 0, 0, 0, 0, 0, -3.56403, 5, -1.81596, 0, 0, 0, 0, 0, 0, -3.61931, 5, -1.70312, 0, 0, 0, 0, 0, 0, -3.67102, 5, -1.58859, 0, 0, 0, 0, 0, 0, -3.71911, 5, -1.4725, 0, 0, 0, 0, 0, 0, -3.76352, 5, -1.35495, 0, 0, 0, 0, 0, 0, -3.80423, 5, -1.23607, 0, 0, 0, 0, 0, 0, -3.84117, 5, -1.11596, 0, 0, 0, 0, 0, 0, -3.87433, 5, -0.99476, 0, 0, 0, 0, 0, 0, -3.90367, 5, -0.872573, 0, 0, 0, 0, 0, 0, -3.92915, 5, -0.749525, 0, 0, 0, 0, 0, 0, -3.95075, 5, -0.625738, 0, 0, 0, 0, 0, 0, -3.96846, 5, -0.501333, 0, 0, 0, 0, 0, 0, -3.98225, 5, -0.376433, 0, 0, 0, 0, 0, 0, -3.99211, 5, -0.251162, 0, 0, 0, 0, 0, 0, -3.99803, 5, -0.125643, 0, 0, 0, 0, 0, 0, -4, 5, 4.76995e-08, 0, 0, 0, 0, 0, 0, -3.99803, 5, 0.125643, 0, 0, 0, 0, 0, 0, -3.99211, 5, 0.251162, 0, 0, 0, 0, 0, 0, -3.98225, 5, 0.376433, 0, 0, 0, 0, 0, 0, -3.96846, 5, 0.501333, 0, 0, 0, 0, 0, 0, -3.95075, 5, 0.625738, 0, 0, 0, 0, 0, 0, -3.92915, 5, 0.749526, 0, 0, 0, 0, 0, 0, -3.90367, 5, 0.872573, 0, 0, 0, 0, 0, 0, -3.87433, 5, 0.99476, 0, 0, 0, 0, 0, 0, -3.84117, 5, 1.11596, 0, 0, 0, 0, 0, 0, -3.80423, 5, 1.23607, 0, 0, 0, 0, 0, 0, -3.76352, 5, 1.35495, 0, 0, 0, 0, 0, 0, -3.71911, 5, 1.4725, 0, 0, 0, 0, 0, 0, -3.67102, 5, 1.58859, 0, 0, 0, 0, 0, 0, -3.61931, 5, 1.70312, 0, 0, 0, 0, 0, 0, -3.56403, 5, 1.81596, 0, 0, 0, 0, 0, 0, -3.50523, 5, 1.92702, 0, 0, 0, 0, 0, 0, -3.44297, 5, 2.03617, 0, 0, 0, 0, 0, 0, -3.37731, 5, 2.14331, 0, 0, 0, 0, 0, 0, -3.30832, 5, 2.24833, 0, 0, 0, 0, 0, 0, -3.23607, 5, 2.35114, 0, 0, 0, 0, 0, 0, -3.16062, 5, 2.45163, 0, 0, 0, 0, 0, 0, -3.08205, 5, 2.5497, 0, 0, 0, 0, 0, 0, -3.00044, 5, 2.64525, 0, 0, 0, 0, 0, 0, -2.91587, 5, 2.73819, 0, 0, 0, 0, 0, 0, -2.82843, 5, 2.82843, 0, 0, 0, 0, 0, 0, -2.73819, 5, 2.91587, 0, 0, 0, 0, 0, 0, -2.64525, 5, 3.00044, 0, 0, 0, 0, 0, 0, -2.5497, 5, 3.08205, 0, 0, 0, 0, 0, 0, -2.45163, 5, 3.16062, 0, 0, 0, 0, 0, 0, -2.35114, 5, 3.23607, 0, 0, 0, 0, 0, 0, -2.24833, 5, 3.30832, 0, 0, 0, 0, 0, 0, -2.14331, 5, 3.37731, 0, 0, 0, 0, 0, 0, -2.03617, 5, 3.44297, 0, 0, 0, 0, 0, 0, -1.92701, 5, 3.50523, 0, 0, 0, 0, 0, 0, -1.81596, 5, 3.56403, 0, 0, 0, 0, 0, 0, -1.70312, 5, 3.61931, 0, 0, 0, 0, 0, 0, -1.58859, 5, 3.67102, 0, 0, 0, 0, 0, 0, -1.4725, 5, 3.71911, 0, 0, 0, 0, 0, 0, -1.35495, 5, 3.76352, 0, 0, 0, 0, 0, 0, -1.23607, 5, 3.80423, 0, 0, 0, 0, 0, 0, -1.11596, 5, 3.84117, 0, 0, 0, 0, 0, 0, -0.994759, 5, 3.87433, 0, 0, 0, 0, 0, 0, -0.872573, 5, 3.90367, 0, 0, 0, 0, 0, 0, -0.749525, 5, 3.92915, 0, 0, 0, 0, 0, 0, -0.625737, 5, 3.95075, 0, 0, 0, 0, 0, 0, -0.501332, 5, 3.96846, 0, 0, 0, 0, 0, 0, -0.376433, 5, 3.98225, 0, 0, 0, 0, 0, 0, -0.251161, 5, 3.99211, 0, 0, 0, 0, 0, 0, -0.125642, 5, 3.99803, 0, 0, 0, 0, 0, 0, 0, 5, 4),
 "tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
@@ -154,6 +155,34 @@ atlas = SubResource("CompressedTexture2D_r5p4b")
 region = Rect2(0, 0, 30, 30)
 margin = Rect2(1, 0, 0, 0)
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1ilts"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yjc64"]
+bg_color = Color(0.176471, 0.176471, 0.176471, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="LabelSettings" id="LabelSettings_i71pd"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i055w"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k24f1"]
+bg_color = Color(0.129412, 0.129412, 0.129412, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
 [node name="World" type="Node3D"]
 
 [node name="InputContext" type="Node" parent="."]
@@ -206,7 +235,7 @@ zoom_duration = 0.15
 zoom_clamp = Vector2(30, 100)
 
 [node name="CameraPath" type="Path3D" parent="CameraRig"]
-curve = SubResource("Curve3D_7vibs")
+curve = SubResource("Curve3D_1ilts")
 script = ExtResource("19_rrr1q")
 radius = 4.0
 height = 5.0
@@ -379,13 +408,14 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("24_7vibs")
 
-[node name="Generate Button" type="Button" parent="Pattern Editor/Generation/HBoxContainer" node_paths=PackedStringArray("pattern_editor")]
+[node name="Generate Button" type="Button" parent="Pattern Editor/Generation/HBoxContainer" node_paths=PackedStringArray("pattern_editor", "popup_window")]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Generate"
 script = ExtResource("23_mc0ck")
 max_generation_size = 4
 pattern_editor = NodePath("../../..")
+popup_window = NodePath("../../../Popup Window Y_N")
 
 [node name="Edition" type="VBoxContainer" parent="Pattern Editor"]
 anchors_preset = 3
@@ -539,6 +569,80 @@ expand_icon = true
 script = ExtResource("27_6vjcn")
 pattern_holder = NodePath("../../../../PatternHolder")
 
+[node name="Popup Window Y_N" type="Panel" parent="Pattern Editor"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_1ilts")
+script = ExtResource("30_yjc64")
+
+[node name="Panel" type="Panel" parent="Pattern Editor/Popup Window Y_N"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -100.0
+offset_right = 150.0
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_yjc64")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Pattern Editor/Popup Window Y_N/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = 6.0
+offset_right = -12.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Text" type="Label" parent="Pattern Editor/Popup Window Y_N/Panel/VBoxContainer"]
+custom_minimum_size = Vector2(250, 100)
+layout_mode = 2
+text = "This action will generate a fresh Json and will discard any manual changes you've made ! 
+
+Continue ?"
+label_settings = SubResource("LabelSettings_i71pd")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Pattern Editor/Popup Window Y_N/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 20
+
+[node name="HSeparator" type="HSeparator" parent="Pattern Editor/Popup Window Y_N/Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_i055w")
+
+[node name="Button Y" type="Button" parent="Pattern Editor/Popup Window Y_N/Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_k24f1")
+text = "Yes"
+
+[node name="Button N" type="Button" parent="Pattern Editor/Popup Window Y_N/Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_k24f1")
+text = "No"
+
+[node name="HSeparator2" type="HSeparator" parent="Pattern Editor/Popup Window Y_N/Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxEmpty_i055w")
+
 [connection signal="button_down" from="Pattern Editor/Navigation/HBoxContainer/PatternSize Selector/HBoxContainer/Previous" to="Pattern Editor" method="_on_previous_size_button_down"]
 [connection signal="item_selected" from="Pattern Editor/Navigation/HBoxContainer/PatternSize Selector/HBoxContainer/OptionButton" to="Pattern Editor" method="_on_pattern_size_item_selected"]
 [connection signal="button_down" from="Pattern Editor/Navigation/HBoxContainer/PatternSize Selector/HBoxContainer/Next" to="Pattern Editor" method="_on_next_size_button_down"]
@@ -548,7 +652,8 @@ pattern_holder = NodePath("../../../../PatternHolder")
 [connection signal="value_changed" from="Pattern Editor/Generation/HBoxContainer/VBoxContainer/HBoxContainer/HSlider" to="Pattern Editor/Generation/HBoxContainer/VBoxContainer/HBoxContainer/Label" method="SetText"]
 [connection signal="value_changed" from="Pattern Editor/Generation/HBoxContainer/VBoxContainer/HBoxContainer/HSlider" to="Pattern Editor/Generation/HBoxContainer/Generate Button" method="_set_generation_size"]
 [connection signal="GenerationComplete" from="Pattern Editor/Generation/HBoxContainer/Generate Button" to="Pattern Editor" method="UpdateDimensions"]
-[connection signal="button_down" from="Pattern Editor/Generation/HBoxContainer/Generate Button" to="Pattern Editor/Generation/HBoxContainer/Generate Button" method="StartGeneration"]
+[connection signal="button_down" from="Pattern Editor/Generation/HBoxContainer/Generate Button" to="Pattern Editor/Generation/HBoxContainer/Generate Button" method="_on_start_generation_button_down"]
+[connection signal="button_down" from="Pattern Editor/Edition/SavePattern Popup/VBoxContainer/Save" to="Pattern Editor" method="_on_pattern_save"]
 [connection signal="button_down" from="Pattern Editor/Edition/SavePattern Popup/VBoxContainer/Discard" to="Pattern Editor" method="_on_pattern_discard"]
 [connection signal="pressed" from="Pattern Editor/Edition/EditButtons/Rotate CCW" to="Pattern Editor" method="_on_pattern_edit"]
 [connection signal="pressed" from="Pattern Editor/Edition/EditButtons/VBoxContainer/Translate -R" to="Pattern Editor" method="_on_pattern_edit"]
@@ -559,3 +664,6 @@ pattern_holder = NodePath("../../../../PatternHolder")
 [connection signal="pressed" from="Pattern Editor/Edition/EditButtons/VBoxContainer3/Translate +S" to="Pattern Editor" method="_on_pattern_edit"]
 [connection signal="pressed" from="Pattern Editor/Edition/EditButtons/VBoxContainer3/Translate +R" to="Pattern Editor" method="_on_pattern_edit"]
 [connection signal="pressed" from="Pattern Editor/Edition/EditButtons/Rotate CW" to="Pattern Editor" method="_on_pattern_edit"]
+[connection signal="YesPressed" from="Pattern Editor/Popup Window Y_N" to="Pattern Editor/Generation/HBoxContainer/Generate Button" method="StartGeneration"]
+[connection signal="button_down" from="Pattern Editor/Popup Window Y_N/Panel/VBoxContainer/HBoxContainer/Button Y" to="Pattern Editor/Popup Window Y_N" method="_on_buttonY_down"]
+[connection signal="button_down" from="Pattern Editor/Popup Window Y_N/Panel/VBoxContainer/HBoxContainer/Button N" to="Pattern Editor/Popup Window Y_N" method="_on_buttonN_down"]

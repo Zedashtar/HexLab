@@ -11,9 +11,9 @@ public partial class PatternDataGeneration : Node
 
     [Export] int max_generation_size = 3;
     [Export] PatternEditor pattern_editor;
+    [Export] PopupWindowYN popup_window;
     Layout layout = new Layout(Layout.flat, new Vector2(0.5f, 0.5f), Vector3.Zero);
 
-    PatternData autoload_data;
     [Signal] public delegate void GenerationCompleteEventHandler();
     string path = "res://Autoload/GameData/patterns.json";
 
@@ -37,36 +37,15 @@ public partial class PatternDataGeneration : Node
         ];
 
 
-    public override void _Ready()
-    {
-        autoload_data = GetNode<PatternData>("/root/GameData/Patterns");
-        if (autoload_data == null) { GD.Print("Failed to get PatternData autoload"); return; }
-    }
-
-    public void SavePatternsToFile()
-    {
-        using var json = FileAccess.Open(path, FileAccess.ModeFlags.WriteRead);
-
-        if (Data == null)
-        {
-            GD.PrintErr("No pattern data to save.");
-            return;
-        }
-
-        string pattern_data = JsonConvert.SerializeObject(Data, Formatting.Indented);
-        json.StoreString(pattern_data);
-        json.Close();
-        GD.Print("Patterns saved to file.");
-    }
-
     public void StartGeneration()
     {
-        Data = autoload_data.Data;
+        Data = pattern_editor.savedPatterns.Data;
 
         if (Data == null || Data.Length == 0)
         {
             GD.Print("No existing pattern data found. Initializing with base patterns.");
             Data = patterns_base;
+
         }
 
 
@@ -91,9 +70,9 @@ public partial class PatternDataGeneration : Node
 
         GD.Print("Full Generation Complete");
         GD.Print("Saving to Json File");
-        SavePatternsToFile();
+        pattern_editor.SavePatternsToFile(Data);
         GD.Print("Updating Autoload Data");
-        autoload_data.LoadPatternsFromFile();
+        pattern_editor.savedPatterns.LoadPatternsFromFile();
         GD.Print("-------------------");
         EmitSignal(SignalName.GenerationComplete);
     }
@@ -174,37 +153,16 @@ public partial class PatternDataGeneration : Node
 
     }
 
-
-    Hex CalculateBarycenter(List<Hex> _pattern)
-    {
-        // Convert Hex to worldspace positions
-        List<Vector3> worldspace_positions = new List<Vector3>();
-        foreach (Hex h in _pattern)
-        {
-            Vector3 worldspace_position = layout.GridToWorldspace(h);
-            worldspace_positions.Add(worldspace_position);
-        }
-
-        //Calculate Barycenter
-        Vector3 barycenter = Vector3.Zero;
-        foreach (var pos in worldspace_positions)
-        {
-            barycenter += pos;
-        }
-        barycenter /= worldspace_positions.Count;
-
-        //Get Closest Hex to Barycenter
-        Hex bary_hex = layout.WorldspaceToGrid(barycenter);
-
-        return bary_hex;
-
-    }
-
     List<Hex[]> GenerationCleanup(List<Hex[]> _pattern_list)
     {
         _pattern_list = RemoveDuplicates(_pattern_list);
         _pattern_list = RemoveIBM(_pattern_list);
         _pattern_list = RemoveIBR(_pattern_list);
+
+        // When centering patterns, and the calculated barycenter is exactly between two hexes, the result of the centering is inconsistent.
+        // This can lead to patterns that are idantical but offset by one hex and not being removed by the other cleanup functions.
+        // Remove IBT calculates all possible translations and runs the other cleanup functions.
+
         _pattern_list = RemoveIBT(_pattern_list);
 
         return _pattern_list;
@@ -354,9 +312,9 @@ public partial class PatternDataGeneration : Node
                 return true;
         }
         return false;
-        
 
-        
+
+
 
     }
 
@@ -368,6 +326,11 @@ public partial class PatternDataGeneration : Node
     void _set_generation_size(float _size)
     {
         max_generation_size = (int)_size;
+    }
+    
+    void _on_start_generation_button_down()
+    {
+        popup_window.Open();
     }
 
     
