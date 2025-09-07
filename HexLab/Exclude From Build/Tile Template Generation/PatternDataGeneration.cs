@@ -54,14 +54,7 @@ public partial class PatternDataGeneration : Node
 
 
         //Ensure Data array is large enough to hold patterns up to max_generation_size
-        if (Data.Length - 1 < max_generation_size)
-        {
-            GD.Print("pattern_data max reccorded pattern size is  [" + (Data.Length - 1) + "] is less than max generation size [" + max_generation_size + "]. Extending array.");
-            Hex[][][] array_extension = Enumerable.Repeat(new Hex[0][], max_generation_size - Data.Length + 1).ToArray();
-            Data = Data.Concat(array_extension).ToArray();
-            GD.Print("Array extended to max pattern size [" + (Data.Length - 1) + "]");
-
-        }
+        DataResize();
 
         for (int n = 2; n < max_generation_size; n++)
         {
@@ -69,6 +62,24 @@ public partial class PatternDataGeneration : Node
         }
 
         GD.Print("Full Generation Complete");
+        GD.Print("Saving to Json File");
+        pattern_editor.SavePatternsToFile(Data);
+        GD.Print("Updating Autoload Data");
+        pattern_editor.savedPatterns.LoadPatternsFromFile();
+        GD.Print("-------------------");
+        EmitSignal(SignalName.GenerationComplete);
+    }
+
+    public void GenerateNextSize()
+    {
+        GD.Print("-------------------");
+        Data = pattern_editor.savedPatterns.Data;
+        max_generation_size = Data.Length;
+        GD.Print("Starting Next Step Generation for size [" + max_generation_size + "]");
+        DataResize();
+        patternBuilder(max_generation_size - 1);
+
+        GD.Print("Next Step Generation Complete");
         GD.Print("Saving to Json File");
         pattern_editor.SavePatternsToFile(Data);
         GD.Print("Updating Autoload Data");
@@ -92,10 +103,10 @@ public partial class PatternDataGeneration : Node
 
 
         GD.Print("Generated " + output.Count + " new patterns of size [" + (_n + 1) + "]");
-        foreach (Hex[] pattern in output)
-        {
-            GD.Print("Pattern: " + String.Join(", ", pattern.Select(h => h.ToString())));
-        }
+        // foreach (Hex[] pattern in output)
+        // {
+        //     GD.Print("Pattern: " + String.Join(", ", pattern.Select(h => h.ToString())));
+        // }
         GD.Print("-------------------");
 
         List<Hex[][]> new_data = Data.ToList();
@@ -104,6 +115,20 @@ public partial class PatternDataGeneration : Node
     }
 
     #region Helper Functions
+
+    void DataResize()
+    {
+        if (Data.Length - 1 < max_generation_size)
+        {
+            GD.Print("pattern_data max reccorded pattern size is  [" + (Data.Length - 1) + "] is less than max generation size [" + max_generation_size + "]. Extending array.");
+            Hex[][][] array_extension = Enumerable.Repeat(new Hex[0][], max_generation_size - Data.Length + 1).ToArray();
+            Data = Data.Concat(array_extension).ToArray();
+            GD.Print("Array extended to max pattern size [" + (Data.Length - 1) + "]");
+
+        }
+    }
+
+
     List<Hex> N_AdjacencyList(Hex[] _pattern)
     {
 

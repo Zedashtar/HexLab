@@ -13,6 +13,8 @@ public partial class PatternEditor : CanvasLayer
     [Export] OptionButton sizeDropdown;
     [Export] OptionButton indexDropdown;
     [Export] Control save_pattern_popup;
+    [Export] Label max_size_label;
+    string label_string = "Saved Max Size : ";
 
     public int selectedPatternSize = 1;
     int PatternSizeDimension;
@@ -40,8 +42,14 @@ public partial class PatternEditor : CanvasLayer
         PatternSizeDimension = savedPatterns.Data.Length - 1;
         PatternIndexDimension = savedPatterns.Data[selectedPatternSize].Length;
         UpdateSizeDropdown();
+        UpdateLabel();
 
 
+    }
+
+    public void UpdateLabel()
+    {
+        max_size_label.Text = label_string + (savedPatterns.Data.Length - 1);
     }
 
     private void UpdateSizeDropdown()
